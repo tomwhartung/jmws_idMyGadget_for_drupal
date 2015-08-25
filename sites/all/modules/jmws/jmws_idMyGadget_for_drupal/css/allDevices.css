@@ -1,0 +1,122 @@
+/*
+ * allDevices.css: styles for use on all devices
+ * Use this in conjunction with a sheet that sets the font sizes etc.,
+ * i.e. either mediaQueries.css or one of the files in device
+ */
+body {
+	background-color: white;
+	color:            black;
+	font-family:  Verdana, Arial, Helvetica, sans-serif;
+	font-size:    100%;
+	text-align:   left;
+}
+div#content {
+	position: relative;
+}
+
+h1, h2, h3, th {
+	font-weight: bold;
+	text-align:  center;
+	text-decoration: underline;
+}
+h1, h2, h3 {
+	margin: 0.2em 0.1em 0em 0.05em;
+	padding: 0.2em 0.1em 0em 0.05em;
+}
+h4, h5, h6 {
+	font-weight: bold;
+	text-align:  left;
+	text-decoration: underline;
+	margin: 0.15em 0.1em 0em 0.05em;
+	padding: 0.15em 0.1em 0em 0.05em;
+}
+p, a, li, dt, dd, td, blockquote {
+	margin: 0.1em 0.1em 0em 0.1em;
+	padding: 0.1em 0.1em 0em 0.1em;
+}
+p.detector-used {
+	margin-left: 1.1em;
+}
+dl, ul {
+	margin: 0;
+	padding: 0;
+}
+ul li {
+	margin-left: 1.1em;   /* do not indent bullet items */
+}
+p, a, ul, li, dt, dd, td, blockquote {
+	text-align: left;
+}
+a, a:hover {
+	color: darkblue;
+}
+a.disabled, a.disabled:hover {
+	pointer-events: none;
+	cursor: default;
+}
+a {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+dt {
+	font-weight: bold;
+}
+.centered {
+	text-align: center;
+}
+label {
+	clear: both;
+	display: block;
+}
+label.left {
+	clear: both;
+	display: inline;
+	float: left;
+	width: 50%;
+}
+label.right {
+	clear: none;
+	display: inline;
+	float: right;
+	text-justify: left;
+	width: 50%;
+}
+.disabled, .obsolete {
+	text-decoration: line-through;
+}
+
+div.output {
+	border-color: grey;
+}
+.warning {
+	border-color: orange;
+}
+div.output, .warning {
+	border-style: solid;
+	border-width: 0.5em;
+	margin: 0.5em;
+	padding: 1.0em;
+}
+ul.no-bullets, ul.debugging  {
+	list-style-type: none;
+}
+.debugging {
+	border: 3px solid red;
+}
+.rmCssForm {
+	display: inline;
+	float: left;
+	width: 33%;
+}
+.gadgetTypeForm {
+	display: inline;
+	float: right;
+	width: 66%;
+}
+.footerLink {
+	clear: both;
+	display: block;
+	width: 100%;
+}

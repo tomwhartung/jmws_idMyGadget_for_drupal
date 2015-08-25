@@ -1,0 +1,52 @@
+/*
+ * iPhone.css and androidPhone.css: styles for iPhones and androidPhones
+ * It's OK and even desireable for these files to be very similar or even identical
+ * (DRY is extremely important in principle but maybe not necessarily always essential, as in this case.)
+ */
+body {
+	margin: 0em;
+	padding: 0em;
+}
+div#container {
+	margin: 1em 1.5em 2em;
+}
+
+ul {
+	margin: 0.0em;
+}
+a {
+	font-weight: bold;   /* make links easier to see and tap */
+}
+dd {
+	margin-left: 0.5em;
+}
+/*
+ * Make font sizes, line heights and links a little smaller and easier to read
+ */
+h1, h2, h3, p, a, ul, li, dl, dt, dd {
+	line-height: 150%;
+}
+h1 {
+	font-size: 1.75em;
+}
+h2 {
+	font-size: 1.5em;
+}
+h3 {
+	font-size: 1.25em;
+}
+p, a, ul, li, dl, dt, dd {
+	font-size: 1.0em;
+}
+ul.debugging {
+	font-size: 0.75em;
+}
+
+.rmCssForm {
+	display: block;
+	width: 100%;
+}
+.gadgetTypeForm {
+	display: block;
+	width: 100%;
+}

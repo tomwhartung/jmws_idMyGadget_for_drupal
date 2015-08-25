@@ -1,0 +1,13 @@
+/*
+ * reverseColors.css: for fun, use black on white and make links lighter
+ */
+body {
+	background-color: #000000;   /* reverse colors for */
+	color:            #ffffff;   /* dramatic effect :-) */
+}
+a {
+	color: skyblue;      /* make links easier to see */
+}
+a:visited {
+	color: #7799ff;
+}

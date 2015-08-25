@@ -1,0 +1,29 @@
+/*
+ * tablet.css: styles for tablets
+ */
+div#container {
+	margin-top:    0.25in;
+	margin-left:   0.50in;
+	margin-right:  1.25in;
+}
+/*
+ * Make font sizes, line heights and links a little bit bigger and easier to read
+ */
+h1, h2, h3, p, a, ul, li, dl, dt, dd {
+	line-height: 150%;
+}
+h1 {
+	font-size: 2.25em;
+}
+h2 {
+	font-size: 2.0em;
+}
+h3 {
+	font-size: 1.75em;
+}
+p, a, ul, li, dl, dt, dd {
+	font-size: 1.0em;
+}
+a {
+	font-weight: bold;   /* make links easier to see and tap */
+}

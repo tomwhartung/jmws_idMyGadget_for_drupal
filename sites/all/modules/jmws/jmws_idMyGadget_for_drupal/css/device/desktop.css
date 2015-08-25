@@ -1,0 +1,13 @@
+/*
+ * desktop.css: styles for only desktop PCs
+ * Most of the styles in ../allDevices.css are suitable so
+ * there's not much here
+ */
+div#container {
+	margin-top:    0.50in;
+	margin-left:   0.75in;
+	margin-right:  1.50in;
+}
+a:hover {
+	font-weight: bold;   /* for fun */
+}  

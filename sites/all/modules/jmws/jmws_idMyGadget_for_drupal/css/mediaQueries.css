@@ -1,0 +1,77 @@
+/*
+ * Use media queries to adjust margins and font sizes when we are not using device detection.
+ * This file is meant to be included after allDevices.css .
+ */
+/*
+ * styles for a phone-sized screen or window
+ */
+@media only screen and (max-width: 1000px) {
+	body {
+		background-color: black;
+		color: white;
+	}
+	div#container {
+		margin-top:    2em;
+		margin-left:   2em;
+		margin-bottom: 0em;
+		margin-right:  2em;
+	}
+	th, td {
+		padding: 0.6em;
+	}
+	a, a:hover {
+		color: lightskyblue;
+	}
+	a:hover {
+		border: lightskyblue inset 4px;
+	}
+
+	.rmCssForm {
+		display: block;
+		width: 100%;
+	}
+	.gadgetTypeForm {
+		display: block;
+		width: 100%;
+	}
+}
+@media only screen and (max-width: 1000px) and (orientation:landscape) {
+	h1, h2, h3, h4, h5, h6, th, p, dl, a, ul, td {
+		line-height: 140%;
+	}
+	p, dl, a, ul, td {
+		font-size: 1.0em;
+	}
+}
+@media only screen and (max-width: 1000px) and (orientation:portrait) {
+	h1, h2, h3, h4, h5, h6, th, p, dl, a, ul, td {
+		line-height: 150%;
+	}
+	p, dl, ul, td {
+		font-size: 1.0em;
+	}
+	a {
+		font-size: 1.0em;
+	}
+}
+
+/*
+ * styles for a laptop-sized screen or window
+ */
+@media only screen and (min-width: 1000px) {
+	body {
+		background-color: white;
+		color: black;
+	}
+	div#container {
+		margin-top:   5.0em;
+		margin-left:  5.0em;
+		margin-right: 5.0em;
+	}
+	h1, h2, h3, h4, h5, h6, th, p, dl, a, ul, td {
+		line-height: 130%;
+	}
+	p, dl, a, ul, td {
+		font-size: 1.0em;
+	}
+}

@@ -1,0 +1,18 @@
+/*
+ * showBorders.css: it is interesting to experiment with these.
+ * Long strings without punctuation or whitespace can cause browsers in
+ * mobile devices to ignore font sizes etc.
+ */
+body {
+	border: 3px solid red;
+	width: 100%;
+}
+div#container {
+	border: 3px solid green;
+	margin: 1.0em;
+	width: 100%;
+}
+p, ul {
+	border: 3px solid blue;
+	width: 100%;
+}
