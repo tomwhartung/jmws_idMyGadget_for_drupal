@@ -2,12 +2,12 @@
 /**
  * Creates an object of the desired idMyGadget subclass and uses it for device detection.
  * NOTE:
- * *IF* we can keep all the wordpress-specific code here,
- * *THEN* we can reuse the rest of the code in this project for joomla and Drupal (and...?)
+ * *IF* we can keep all the Drupal-specific code here,
+ * *THEN* we can reuse the rest of the code in this project for joomla and wordpress (and...?)
  */
 require_once 'JmwsIdMyGadget.php';
 
-class JmwsIdMyGadgetWordpress extends JmwsIdMyGadget
+class JmwsIdMyGadgetDrupal extends JmwsIdMyGadget
 {
 	/**
 	 * Array of gadget detectors currently supported by idMyGadget
