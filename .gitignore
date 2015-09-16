@@ -8,7 +8,7 @@ tmp/
 #
 # Ignore third-party device detection code
 #
-/sites/all/modules/jmws/jmws_idMyGadget_for_drupal/gadget_detectors/detect_mobile_browsers/php/detectmobilebrowser.php.txt
-/sites/all/modules/jmws/jmws_idMyGadget_for_drupal/gadget_detectors/mobile_detect/Mobile-Detect/
-/sites/all/modules/jmws/jmws_idMyGadget_for_drupal/gadget_detectors/tera_wurfl/Tera-Wurfl/wurfl-dbapi*
+/sites/all/modules/jmws/jmws_idMyGadget_for_drupal/idMyGadget/gadget_detectors/detect_mobile_browsers/php/detectmobilebrowser.php.txt
+/sites/all/modules/jmws/jmws_idMyGadget_for_drupal/idMyGadget/gadget_detectors/mobile_detect/Mobile-Detect/
+/sites/all/modules/jmws/jmws_idMyGadget_for_drupal/idMyGadget/gadget_detectors/tera_wurfl/Tera-Wurfl/wurfl-dbapi*
 
