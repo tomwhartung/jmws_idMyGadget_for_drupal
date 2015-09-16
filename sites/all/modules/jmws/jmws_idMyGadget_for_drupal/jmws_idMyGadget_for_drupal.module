@@ -18,48 +18,35 @@ $jmwsIdMyGadget = null;
 /**
  * Implements hook_help().
  */
-function jmws_idMyGadget_for_joomla_help($path, $arg) {
+function jmws_idMyGadget_for_drupal_help($path, $arg) {
   switch ($path) {
-    case 'admin/help#jmws_idMyGadget_for_joomlayslog':
+    case 'admin/help#jmws_idMyGadget_for_drupal':
       $output = '';
       $output .= '<h3>' . t('About') . '</h3>';
-      $output .= '<p>' . t("The jmws_idMyGadget_for_joomla module provides device detection so we can control what content etc. is sent ot different device types." . '</p>';
+      $output .= '<p>' . t("The jmws_idMyGadget_for_drupal module provides device detection so we can control what content etc. is sent ot different device types.") . '</p>';
       $output .= '<h3>' . t('Uses') . '</h3>';
       $output .= '<dl>';
       $output .= '<dt>' . t('detect_mobile_browsers') . '</dt>';
       $output .= '<dd>' . t('yadda yadda yadda.') . '</dd>';
       $output .= '</dl>';
       return $output;
+    case 'admin/config/development/idmygadget/%':
+      // if (user_access('switch shortcut sets')) {
+      //   $output = '<p>' . t('Define which shortcut set you are using on the <a href="@shortcut-link">Shortcuts tab</a> of your account page.', array('@shortcut-link' => url("user/{$user->uid}/shortcut    s"))) . '</p>';
+      //   return $output;
+      // }
+      $output = '<p>' . t('Define which gadget detector you are using here.' ) . '</p>';
+      return $output;
+
   }
 }
 
 
 /**
- *
- * @global object $jmwsIdMyGadget
+ * Implements hook_menu().
  */
-function jmws_idMyGadget_for_drupal()
+function jmws_idmygadget_menu()
 {
-	global $gadgetDetectorIndex;    // global for debugging purposes, consider "locking it down?"
-	global $gadgetDetectorString;   // global for debugging purposes, consider "locking it down?"
-	global $idMyGadgetClass;        // global for debugging purposes, consider "locking it down?"
-
-	$gadgetDetectorIndex = get_theme_mod('gadget_detector');
-	$supportedGadgetDetectors = JmwsIdMyGadgetWordpress::$supportedGadgetDetectors;
-	$gadgetDetectorString = $supportedGadgetDetectors[$gadgetDetectorIndex];
-
-	global $jmwsIdMyGadget;
-	$jmwsIdMyGadget = new JmwsIdMyGadgetWordpress($gadgetDetectorString);
-
-	$jmwsIdMyGadget->usingJQueryMobile = FALSE;
-
-	$idMyGadgetClass = get_class( $jmwsIdMyGadget->getIdMyGadget() );
-}
-
-function jmws_idmygadget_customize_register( $wp_customize )
-{
-	global $theme_object_stylesheet;   // aka. the theme "name"
-
 	//
 	// Add a section to the theme's Customize side bar that contains
 	// radio buttons that allow the admin to set the device detector.
@@ -82,5 +69,27 @@ function jmws_idmygadget_customize_register( $wp_customize )
 		'choices'  => JmwsIdMyGadgetWordpress::$supportedGadgetDetectors,
 		'priority' => 100,
 	) );
+}
+
+/**
+ *
+ * @global object $jmwsIdMyGadget
+ */
+function jmws_idMyGadget_for_drupal_instantiate()
+{
+	global $gadgetDetectorIndex;    // global for debugging purposes, consider "locking it down?"
+	global $gadgetDetectorString;   // global for debugging purposes, consider "locking it down?"
+	global $idMyGadgetClass;        // global for debugging purposes, consider "locking it down?"
+
+	$gadgetDetectorIndex = get_theme_mod('gadget_detector');
+	$supportedGadgetDetectors = JmwsIdMyGadgetWordpress::$supportedGadgetDetectors;
+	$gadgetDetectorString = $supportedGadgetDetectors[$gadgetDetectorIndex];
+
+	global $jmwsIdMyGadget;
+	$jmwsIdMyGadget = new JmwsIdMyGadgetWordpress($gadgetDetectorString);
+
+	$jmwsIdMyGadget->usingJQueryMobile = FALSE;
+
+	$idMyGadgetClass = get_class( $jmwsIdMyGadget->getIdMyGadget() );
 }
 
