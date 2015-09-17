@@ -10,10 +10,13 @@
  * Author URI: http://tomwhartung.com/
  */
 // define( 'IDMYGADGET__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-// require_once( IDMYGADGET__PLUGIN_DIR . '/JmwsIdMyGadgetWordpress.php' );
+// require_once( IDMYGADGET__PLUGIN_DIR . '/JmwsIdMyGadgetDrupal.php' );
 // require_once 'jmws_idMyGadget_for_joomla/PhoneBurgerMenuIcon.php';
+require_once( 'idMyGadget/JmwsIdMyGadgetDrupal.php' );
 
 $jmwsIdMyGadget = null;
+
+error_log( 'Hi there cutie.' );
 
 /**
  * Implements hook_help().
@@ -41,34 +44,65 @@ function jmws_idMyGadget_for_drupal_help($path, $arg) {
   }
 }
 
+/**
+ * Create admin config form to allow selection of which gadget detector to use
+ *
+ */
+function jmws_idMyGadget_for_drupal_admin()
+{
+	$form = array();
+	$form['idMyGadget_gadget_detector'] = array(
+		'#type' => 'radios',
+		'#title' => t('Gadget Detector'),
+		'#default_value' => variable_get('idMyGadget_gadget_detector', 'detect_mobile_browsers'),
+		'#options' => $module_options,
+		'#description' => t('Select the 3rd party device detector to use for this site.'),
+		'#required' => TRUE,
+	);
+
+	return system_settings_form( $form );
+}
 
 /**
  * Implements hook_menu().
  */
-function jmws_idmygadget_menu()
+function jmws_idMyGadget_menu()
 {
 	//
-	// Add a section to the theme's Customize side bar that contains
-	// radio buttons that allow the admin to set the device detector.
+	// Add a section to the module's Settings screen that contains
+	// radio buttons allowing the admin to set the device detector.
 	//
-	$wp_customize->add_section( 'gadget_detector' , array(
-		'title'      => __( 'IdMyGadget', $theme_object_stylesheet ),
-		'description' => __( 'Select the 3rd party device detector to use for this theme.' ),
-		'priority'   => 9999,
-	) );
+	$items = array();
 
-	$wp_customize->add_setting( 'gadget_detector' , array(
-		'default'     => JmwsIdMyGadgetWordpress::$supportedGadgetDetectors[0],
-		'transport'   => 'refresh',
-	) );
+//	$wp_customize->add_section( 'gadget_detector' , array(
+//		'title'      => __( 'IdMyGadget', $theme_object_stylesheet ),
+//		'description' => __( 'Select the 3rd party device detector to use for this theme.' ),
+//		'priority'   => 9999,
+//	) );
+//
+//	$wp_customize->add_setting( 'gadget_detector' , array(
+//		'default'     => JmwsIdMyGadgetDrupal::$supportedGadgetDetectors[0],
+//		'transport'   => 'refresh',
+//	) );
+//
+//	$wp_customize->add_control( 'gadget_detector', array(
+//		'label'    => __( 'Gadget Detector', $theme_object_stylesheet ),
+//		'section'  => 'gadget_detector',
+//		'type'     => 'radio',
+//		'choices'  => JmwsIdMyGadgetDrupal::$supportedGadgetDetectors,
+//		'priority' => 100,
+//	) );
 
-	$wp_customize->add_control( 'gadget_detector', array(
-		'label'    => __( 'Gadget Detector', $theme_object_stylesheet ),
-		'section'  => 'gadget_detector',
-		'type'     => 'radio',
-		'choices'  => JmwsIdMyGadgetWordpress::$supportedGadgetDetectors,
-		'priority' => 100,
-	) );
+	$items['admin/config/development/idmygadget'] = array(
+		'title' => 'IdMyGadget module settings',
+		'description' => 'Use this IdMyGadget settings page to change the device detector etc (tbd).',
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('jmws_idMyGadget_for_drupal_admin'),
+		'access arguments' => array('administer jmws_idMyGadget_for_drupal settings'),
+		'type' => MENU_NORMAL_ITEM,
+	);
+
+	return $items;
 }
 
 /**
@@ -82,11 +116,11 @@ function jmws_idMyGadget_for_drupal_instantiate()
 	global $idMyGadgetClass;        // global for debugging purposes, consider "locking it down?"
 
 	$gadgetDetectorIndex = get_theme_mod('gadget_detector');
-	$supportedGadgetDetectors = JmwsIdMyGadgetWordpress::$supportedGadgetDetectors;
+	$supportedGadgetDetectors = JmwsIdMyGadgetDrupal::$supportedGadgetDetectors;
 	$gadgetDetectorString = $supportedGadgetDetectors[$gadgetDetectorIndex];
 
 	global $jmwsIdMyGadget;
-	$jmwsIdMyGadget = new JmwsIdMyGadgetWordpress($gadgetDetectorString);
+	$jmwsIdMyGadget = new JmwsIdMyGadgetDrupal($gadgetDetectorString);
 
 	$jmwsIdMyGadget->usingJQueryMobile = FALSE;
 
