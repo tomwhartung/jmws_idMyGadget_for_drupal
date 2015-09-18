@@ -2,7 +2,7 @@
 /*
  * @package jmws_idMyGadget_for_drupal
  *
- * Plugin Name: jmws_idMyGadget_for_drupal
+ * Plugin Name: idMyGadget
  * Plugin URI: 
  * Description: Integrate idMyGadget with a couple of drupal themes (to start).
  * Author: Tom Hartung
@@ -21,12 +21,12 @@ error_log( 'Hi there cutie.' );
 /**
  * Implements hook_help().
  */
-function jmws_idMyGadget_for_drupal_help($path, $arg) {
+function idMyGadget_help($path, $arg) {
   switch ($path) {
-    case 'admin/help#jmws_idMyGadget_for_drupal':
+    case 'admin/help#idMyGadget':
       $output = '';
       $output .= '<h3>' . t('About') . '</h3>';
-      $output .= '<p>' . t("The jmws_idMyGadget_for_drupal module provides device detection so we can control what content etc. is sent ot different device types.") . '</p>';
+      $output .= '<p>' . t("The idMyGadget module provides device detection so we can control what content etc. is sent ot different device types.") . '</p>';
       $output .= '<h3>' . t('Uses') . '</h3>';
       $output .= '<dl>';
       $output .= '<dt>' . t('detect_mobile_browsers') . '</dt>';
@@ -48,8 +48,11 @@ function jmws_idMyGadget_for_drupal_help($path, $arg) {
  * Create admin config form to allow selection of which gadget detector to use
  *
  */
-function jmws_idMyGadget_for_drupal_admin()
+function idMyGadget_admin()
 {
+//	$module_options = JmwsIdMyGadgetDrupal::$supportedGadgetDetectors;
+//	$default     = JmwsIdMyGadgetDrupal::$supportedGadgetDetectors[0];
+
 	$form = array();
 	$form['idMyGadget_gadget_detector'] = array(
 		'#type' => 'radios',
@@ -97,8 +100,8 @@ function jmws_idMyGadget_menu()
 		'title' => 'IdMyGadget module settings',
 		'description' => 'Use this IdMyGadget settings page to change the device detector etc (tbd).',
 		'page callback' => 'drupal_get_form',
-		'page arguments' => array('jmws_idMyGadget_for_drupal_admin'),
-		'access arguments' => array('administer jmws_idMyGadget_for_drupal settings'),
+		'page arguments' => array('idMyGadget_admin'),
+		'access arguments' => array('administer idMyGadget settings'),
 		'type' => MENU_NORMAL_ITEM,
 	);
 
@@ -109,7 +112,7 @@ function jmws_idMyGadget_menu()
  *
  * @global object $jmwsIdMyGadget
  */
-function jmws_idMyGadget_for_drupal_instantiate()
+function idMyGadget_instantiate()
 {
 	global $gadgetDetectorIndex;    // global for debugging purposes, consider "locking it down?"
 	global $gadgetDetectorString;   // global for debugging purposes, consider "locking it down?"
