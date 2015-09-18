@@ -45,13 +45,14 @@ function idMyGadget_help($path, $arg) {
 }
 
 /**
- * Create admin config form to allow selection of which gadget detector to use
- *
+ * Create admin config function to allow selection of which gadget detector to use
+ * Reference: https://www.drupal.org/node/206761
+ * Example: function system_logging_settings in system/system.admin.inc
  */
 function idMyGadget_admin()
 {
-//	$module_options = JmwsIdMyGadgetDrupal::$supportedGadgetDetectors;
-//	$default     = JmwsIdMyGadgetDrupal::$supportedGadgetDetectors[0];
+	$module_options = JmwsIdMyGadgetDrupal::$supportedGadgetDetectors;
+	$default     = JmwsIdMyGadgetDrupal::$supportedGadgetDetectors[0];
 
 	$form = array();
 	$form['idMyGadget_gadget_detector'] = array(
@@ -63,13 +64,16 @@ function idMyGadget_admin()
 		'#required' => TRUE,
 	);
 
+	global $areWeRunning;
+	$areWeRunning = 'Yes we are running!';
+	variable_set( 'test_variable', 'value_of_test_variable' );
 	return system_settings_form( $form );
 }
 
 /**
  * Implements hook_menu().
  */
-function jmws_idMyGadget_menu()
+function idMyGadget_menu()
 {
 	//
 	// Add a section to the module's Settings screen that contains
@@ -97,7 +101,7 @@ function jmws_idMyGadget_menu()
 //	) );
 
 	$items['admin/config/development/idmygadget'] = array(
-		'title' => 'IdMyGadget module settings',
+		'title' => 'Idmygadget module settings',
 		'description' => 'Use this IdMyGadget settings page to change the device detector etc (tbd).',
 		'page callback' => 'drupal_get_form',
 		'page arguments' => array('idMyGadget_admin'),
@@ -107,6 +111,8 @@ function jmws_idMyGadget_menu()
 
 	return $items;
 }
+
+// function template_preprocess
 
 /**
  *
@@ -118,9 +124,10 @@ function idMyGadget_instantiate()
 	global $gadgetDetectorString;   // global for debugging purposes, consider "locking it down?"
 	global $idMyGadgetClass;        // global for debugging purposes, consider "locking it down?"
 
-	$gadgetDetectorIndex = get_theme_mod('gadget_detector');
+//	$gadgetDetectorIndex = get_theme_mod('gadget_detector');
 	$supportedGadgetDetectors = JmwsIdMyGadgetDrupal::$supportedGadgetDetectors;
-	$gadgetDetectorString = $supportedGadgetDetectors[$gadgetDetectorIndex];
+//	$gadgetDetectorString = $supportedGadgetDetectors[$gadgetDetectorIndex];
+	$gadgetDetectorString = $supportedGadgetDetectors[0];
 
 	global $jmwsIdMyGadget;
 	$jmwsIdMyGadget = new JmwsIdMyGadgetDrupal($gadgetDetectorString);
