@@ -17,6 +17,115 @@ require_once( 'idMyGadget/JmwsIdMyGadgetDrupal.php' );
 $jmwsIdMyGadget = null;
 
 // error_log( 'Hi there.' );
+// function template_preprocess
+
+function idMyGadget_page_alter( &$page ) {
+  print '<p>Entering page_alter in the module!</p>';
+
+  print '<p>Calling idMyGadget_instantiate()';
+  print '</p>';
+  idMyGadget_instantiate();
+
+  print '<p>Leaving page_alter in the module!</p>';
+}
+
+/**
+ *
+ * @global object $jmwsIdMyGadget
+ */
+function idMyGadget_instantiate() {
+  global $gadgetDetectorIndex;    // global for debugging purposes, consider "locking it down?"
+  global $gadgetDetectorString;   // global for debugging purposes, consider "locking it down?"
+  global $idMyGadgetClass;        // global for debugging purposes, consider "locking it down?"
+
+//	$gadgetDetectorIndex = get_theme_mod('gadget_detector');
+  $gadgetDetectorIndex = variable_get( 'idMyGadget_gadget_detector', 0 );
+
+  $supportedGadgetDetectors = JmwsIdMyGadgetDrupal::$supportedGadgetDetectors;
+  $gadgetDetectorString = $supportedGadgetDetectors[$gadgetDetectorIndex];
+
+  global $jmwsIdMyGadget;
+  $jmwsIdMyGadget = new JmwsIdMyGadgetDrupal($gadgetDetectorString);
+
+  $jmwsIdMyGadget->usingJQueryMobile = FALSE;
+
+  $idMyGadgetClass = get_class( $jmwsIdMyGadget->getIdMyGadget() );
+}
+
+
+
+/**
+ * Implements hook_help().
+ */
+function idMyGadget_help($path, $arg) {
+  switch ($path) {
+    case 'admin/help#idMyGadget':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t("The idMyGadget module provides device detection so we can control what content etc. is sent ot different device types.") . '</p>';
+      $output .= '<h3>' . t('Uses') . '</h3>';
+      $output .= '<dl>';
+      $output .= '<dt>' . t('detect_mobile_browsers') . '</dt>';
+      $output .= '<dd>' . t('yadda yadda yadda.') . '</dd>';
+      $output .= '</dl>';
+      return $output;
+    case 'admin/config/development/idmygadget/%':
+      // if (user_access('switch shortcut sets')) {
+      //   $output = '<p>' . t('Define which shortcut set you are using on the <a href="@shortcut-link">Shortcuts tab</a> of your account page.', array('@shortcut-link' => url("user/{$user->uid}/shortcut    s"))) . '</p>';
+      //   return $output;
+      // }
+      $output = '<p>' . t('Define which gadget detector you are using here.' ) . '</p>';
+      return $output;
+
+  }
+}
+
+/**
+ * Create admin config function to allow selection of which gadget detector to use
+ * Reference: https://www.drupal.org/node/206761
+ * Example: function system_logging_settings in system/system.admin.inc
+ */
+function idMyGadget_admin()
+{
+	$module_options = JmwsIdMyGadgetDrupal::$supportedGadgetDetectors;
+	$default     = JmwsIdMyGadgetDrupal::$supportedGadgetDetectors[0];
+
+	$form = array();
+	$form['idMyGadget_gadget_detector'] = array(
+		'#type' => 'radios',
+		'#title' => t('Gadget Detector'),
+		'#default_value' => variable_get( 'idMyGadget_gadget_detector', JmwsIdMyGadgetDrupal::$supportedGadgetDetectors[0] ),
+		'#options' => $module_options,
+		'#description' => t('Select the 3rd party device detector to use for this site.'),
+		'#required' => TRUE,
+	);
+
+	variable_del( 'test_variable', 'value_of_test_variable' );
+	return system_settings_form( $form );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function idMyGadget_menu()
+{
+	//
+	// Add a section to the module's Settings screen that contains
+	// radio buttons allowing the admin to set the device detector.
+	//
+	$items = array();
+
+	$items['admin/config/development/idmygadget'] = array(
+		'title' => 'Idmygadget module settings',
+		'description' => 'Use this IdMyGadget settings page to change the device detector etc (tbd).',
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('idMyGadget_admin'),
+		'access arguments' => array('administer idMyGadget settings'),
+		'type' => MENU_NORMAL_ITEM,
+	);
+
+	return $items;
+}
 
 /**
  * Allows us to see what is in $page
@@ -96,103 +205,3 @@ function idMyGadget_page_alter_NOT( &$page ) {
 
   print '<p>Leaving page_alter in the module!</p>';
 }
-
-
-/**
- * Implements hook_help().
- */
-function idMyGadget_help($path, $arg) {
-  switch ($path) {
-    case 'admin/help#idMyGadget':
-      $output = '';
-      $output .= '<h3>' . t('About') . '</h3>';
-      $output .= '<p>' . t("The idMyGadget module provides device detection so we can control what content etc. is sent ot different device types.") . '</p>';
-      $output .= '<h3>' . t('Uses') . '</h3>';
-      $output .= '<dl>';
-      $output .= '<dt>' . t('detect_mobile_browsers') . '</dt>';
-      $output .= '<dd>' . t('yadda yadda yadda.') . '</dd>';
-      $output .= '</dl>';
-      return $output;
-    case 'admin/config/development/idmygadget/%':
-      // if (user_access('switch shortcut sets')) {
-      //   $output = '<p>' . t('Define which shortcut set you are using on the <a href="@shortcut-link">Shortcuts tab</a> of your account page.', array('@shortcut-link' => url("user/{$user->uid}/shortcut    s"))) . '</p>';
-      //   return $output;
-      // }
-      $output = '<p>' . t('Define which gadget detector you are using here.' ) . '</p>';
-      return $output;
-
-  }
-}
-
-/**
- * Create admin config function to allow selection of which gadget detector to use
- * Reference: https://www.drupal.org/node/206761
- * Example: function system_logging_settings in system/system.admin.inc
- */
-function idMyGadget_admin()
-{
-	$module_options = JmwsIdMyGadgetDrupal::$supportedGadgetDetectors;
-	$default     = JmwsIdMyGadgetDrupal::$supportedGadgetDetectors[0];
-
-	$form = array();
-	$form['idMyGadget_gadget_detector'] = array(
-		'#type' => 'radios',
-		'#title' => t('Gadget Detector'),
-		'#default_value' => variable_get( 'idMyGadget_gadget_detector', JmwsIdMyGadgetDrupal::$supportedGadgetDetectors[0] ),
-		'#options' => $module_options,
-		'#description' => t('Select the 3rd party device detector to use for this site.'),
-		'#required' => TRUE,
-	);
-
-	variable_del( 'test_variable', 'value_of_test_variable' );
-	return system_settings_form( $form );
-}
-
-/**
- * Implements hook_menu().
- */
-function idMyGadget_menu()
-{
-	//
-	// Add a section to the module's Settings screen that contains
-	// radio buttons allowing the admin to set the device detector.
-	//
-	$items = array();
-
-	$items['admin/config/development/idmygadget'] = array(
-		'title' => 'Idmygadget module settings',
-		'description' => 'Use this IdMyGadget settings page to change the device detector etc (tbd).',
-		'page callback' => 'drupal_get_form',
-		'page arguments' => array('idMyGadget_admin'),
-		'access arguments' => array('administer idMyGadget settings'),
-		'type' => MENU_NORMAL_ITEM,
-	);
-
-	return $items;
-}
-
-// function template_preprocess
-
-/**
- *
- * @global object $jmwsIdMyGadget
- */
-function idMyGadget_instantiate()
-{
-	global $gadgetDetectorIndex;    // global for debugging purposes, consider "locking it down?"
-	global $gadgetDetectorString;   // global for debugging purposes, consider "locking it down?"
-	global $idMyGadgetClass;        // global for debugging purposes, consider "locking it down?"
-
-//	$gadgetDetectorIndex = get_theme_mod('gadget_detector');
-	$supportedGadgetDetectors = JmwsIdMyGadgetDrupal::$supportedGadgetDetectors;
-//	$gadgetDetectorString = $supportedGadgetDetectors[$gadgetDetectorIndex];
-	$gadgetDetectorString = $supportedGadgetDetectors[0];
-
-	global $jmwsIdMyGadget;
-	$jmwsIdMyGadget = new JmwsIdMyGadgetDrupal($gadgetDetectorString);
-
-	$jmwsIdMyGadget->usingJQueryMobile = FALSE;
-
-	$idMyGadgetClass = get_class( $jmwsIdMyGadget->getIdMyGadget() );
-}
-
