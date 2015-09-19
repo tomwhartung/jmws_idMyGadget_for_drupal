@@ -58,15 +58,13 @@ function idMyGadget_admin()
 	$form['idMyGadget_gadget_detector'] = array(
 		'#type' => 'radios',
 		'#title' => t('Gadget Detector'),
-		'#default_value' => variable_get('idMyGadget_gadget_detector', 'detect_mobile_browsers'),
+		'#default_value' => variable_get( 'idMyGadget_gadget_detector', JmwsIdMyGadgetDrupal::$supportedGadgetDetectors[0] ),
 		'#options' => $module_options,
 		'#description' => t('Select the 3rd party device detector to use for this site.'),
 		'#required' => TRUE,
 	);
 
-	global $areWeRunning;
-	$areWeRunning = 'Yes we are running!';
-	variable_set( 'test_variable', 'value_of_test_variable' );
+	variable_del( 'test_variable', 'value_of_test_variable' );
 	return system_settings_form( $form );
 }
 
@@ -80,25 +78,6 @@ function idMyGadget_menu()
 	// radio buttons allowing the admin to set the device detector.
 	//
 	$items = array();
-
-//	$wp_customize->add_section( 'gadget_detector' , array(
-//		'title'      => __( 'IdMyGadget', $theme_object_stylesheet ),
-//		'description' => __( 'Select the 3rd party device detector to use for this theme.' ),
-//		'priority'   => 9999,
-//	) );
-//
-//	$wp_customize->add_setting( 'gadget_detector' , array(
-//		'default'     => JmwsIdMyGadgetDrupal::$supportedGadgetDetectors[0],
-//		'transport'   => 'refresh',
-//	) );
-//
-//	$wp_customize->add_control( 'gadget_detector', array(
-//		'label'    => __( 'Gadget Detector', $theme_object_stylesheet ),
-//		'section'  => 'gadget_detector',
-//		'type'     => 'radio',
-//		'choices'  => JmwsIdMyGadgetDrupal::$supportedGadgetDetectors,
-//		'priority' => 100,
-//	) );
 
 	$items['admin/config/development/idmygadget'] = array(
 		'title' => 'Idmygadget module settings',
