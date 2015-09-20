@@ -9,10 +9,9 @@
  * Version: 1.0
  * Author URI: http://tomwhartung.com/
  */
-// define( 'IDMYGADGET__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-// require_once( IDMYGADGET__PLUGIN_DIR . '/JmwsIdMyGadgetDrupal.php' );
-// require_once 'jmws_idMyGadget_for_joomla/PhoneBurgerMenuIcon.php';
+define( 'IDMYGADGET_MODULE_DIR', __DIR__ . DIRECTORY_SEPARATOR . 'idMyGadget' );
 require_once( 'idMyGadget/JmwsIdMyGadgetDrupal.php' );
+// require_once 'jmws_idMyGadget_for_joomla/PhoneBurgerMenuIcon.php';
 
 $jmwsIdMyGadget = null;
 
@@ -25,6 +24,10 @@ function idMyGadget_page_alter( &$page ) {
   print '<p>Calling idMyGadget_instantiate()';
   print '</p>';
   idMyGadget_instantiate();
+
+  $idMyGadgetDir = IDMYGADGET_MODULE_DIR;
+  $message2 = 'idMyGadgetDir: ' . $idMyGadgetDir;
+  print '<p>message2: ' . $message2 . '</p>';
 
   print '<p>Leaving page_alter in the module!</p>';
 }
