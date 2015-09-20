@@ -51,7 +51,7 @@ class JmwsIdMyGadgetDrupal extends JmwsIdMyGadget
 	 */
 	public function __construct( $gadgetDetectorString=null, $debugging=FALSE, $allowOverridesInUrl=TRUE )
 	{
-		$this->idMyGadgetDir = IDMYGADGET__PLUGIN_DIR;
+		$this->idMyGadgetDir = IDMYGADGET_MODULE_DIR;
 		parent::__construct( $gadgetDetectorString, $debugging, $allowOverridesInUrl );
 	}
 }

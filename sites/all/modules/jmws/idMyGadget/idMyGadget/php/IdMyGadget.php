@@ -67,6 +67,7 @@ abstract class IdMyGadget
 	public $allowOverridesInUrl = TRUE;
 	/**
 	 * Directory in which this project is installed (rooted directory to "..")
+	 * Used by isInstalled methods to determine whether the underlying 3rd-party gadget detectors are installed
 	 * @var type String
 	 */
 	public $idMyGadgetDir = null;
