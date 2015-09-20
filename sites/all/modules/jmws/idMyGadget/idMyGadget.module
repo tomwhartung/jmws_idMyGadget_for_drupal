@@ -19,14 +19,12 @@ $jmwsIdMyGadget = null;
 // function template_preprocess
 
 function idMyGadget_page_alter( &$page ) {
-  print '<p>Function idMyGadget_page_alter (in the module) - calling instantiateJmwsIdMyGadget()';
-  print '</p>';
+//  print '<p>Function idMyGadget_page_alter (in the module) - calling instantiateJmwsIdMyGadget()';
+//  print '</p>';
   instantiateJmwsIdMyGadget();
 
   global $jmwsIdMyGadget;
-  // print $jmwsIdMyGadget->getGadgetDetectorStringChar() . '/' . $jmwsIdMyGadget->getGadgetStringChar();
-  $message1 = 'my letters: ' . $jmwsIdMyGadget->getGadgetDetectorStringChar() . '/' . $jmwsIdMyGadget->getGadgetStringChar();
-  print '<p>message1: ' . $message1 . '</p>';
+  print $jmwsIdMyGadget->getGadgetDetectorStringChar() . '/' . $jmwsIdMyGadget->getGadgetStringChar();
 }
 
 /**
