@@ -19,9 +19,9 @@ $jmwsIdMyGadget = null;
 // function template_preprocess
 
 function idMyGadget_page_alter( &$page ) {
-  print '<p>Function idMyGadget_page_alter (in the module) - calling idMyGadget_instantiate()';
+  print '<p>Function idMyGadget_page_alter (in the module) - calling instantiateJmwsIdMyGadget()';
   print '</p>';
-  idMyGadget_instantiate();
+  instantiateJmwsIdMyGadget();
 
   global $jmwsIdMyGadget;
   // print $jmwsIdMyGadget->getGadgetDetectorStringChar() . '/' . $jmwsIdMyGadget->getGadgetStringChar();
@@ -33,7 +33,7 @@ function idMyGadget_page_alter( &$page ) {
  *
  * @global object $jmwsIdMyGadget
  */
-function idMyGadget_instantiate() {
+function instantiateJmwsIdMyGadget() {
   global $jmwsIdMyGadget;         // needs to be global for realsies
   global $gadgetDetectorIndex;    // global for debugging purposes, consider keeping it local when stable
   global $gadgetDetectorString;   // global for debugging purposes, consider keeping it local when stable
