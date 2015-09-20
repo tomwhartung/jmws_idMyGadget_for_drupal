@@ -19,17 +19,14 @@ $jmwsIdMyGadget = null;
 // function template_preprocess
 
 function idMyGadget_page_alter( &$page ) {
-  print '<p>Entering page_alter in the module!</p>';
-
-  print '<p>Calling idMyGadget_instantiate()';
+  print '<p>Function idMyGadget_page_alter (in the module) - calling idMyGadget_instantiate()';
   print '</p>';
   idMyGadget_instantiate();
 
-  $idMyGadgetDir = IDMYGADGET_MODULE_DIR;
-  $message2 = 'idMyGadgetDir: ' . $idMyGadgetDir;
-  print '<p>message2: ' . $message2 . '</p>';
-
-  print '<p>Leaving page_alter in the module!</p>';
+  global $jmwsIdMyGadget;
+  // print $jmwsIdMyGadget->getGadgetDetectorStringChar() . '/' . $jmwsIdMyGadget->getGadgetStringChar();
+  $message1 = 'my letters: ' . $jmwsIdMyGadget->getGadgetDetectorStringChar() . '/' . $jmwsIdMyGadget->getGadgetStringChar();
+  print '<p>message1: ' . $message1 . '</p>';
 }
 
 /**
@@ -37,19 +34,15 @@ function idMyGadget_page_alter( &$page ) {
  * @global object $jmwsIdMyGadget
  */
 function idMyGadget_instantiate() {
-  global $gadgetDetectorIndex;    // global for debugging purposes, consider "locking it down?"
-  global $gadgetDetectorString;   // global for debugging purposes, consider "locking it down?"
-  global $idMyGadgetClass;        // global for debugging purposes, consider "locking it down?"
+  global $jmwsIdMyGadget;         // needs to be global for realsies
+  global $gadgetDetectorIndex;    // global for debugging purposes, consider keeping it local when stable
+  global $gadgetDetectorString;   // global for debugging purposes, consider keeping it local when stable
+  global $idMyGadgetClass;        // global for debugging purposes, consider keeping it local when stable
 
-//	$gadgetDetectorIndex = get_theme_mod('gadget_detector');
   $gadgetDetectorIndex = variable_get( 'idMyGadget_gadget_detector', 0 );
-
   $supportedGadgetDetectors = JmwsIdMyGadgetDrupal::$supportedGadgetDetectors;
   $gadgetDetectorString = $supportedGadgetDetectors[$gadgetDetectorIndex];
-
-  global $jmwsIdMyGadget;
   $jmwsIdMyGadget = new JmwsIdMyGadgetDrupal($gadgetDetectorString);
-
   $jmwsIdMyGadget->usingJQueryMobile = FALSE;
 
   $idMyGadgetClass = get_class( $jmwsIdMyGadget->getIdMyGadget() );
