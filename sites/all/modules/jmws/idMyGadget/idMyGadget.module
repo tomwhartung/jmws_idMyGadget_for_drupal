@@ -19,16 +19,15 @@ $jmwsIdMyGadget = null;
 // function template_preprocess
 
 function idMyGadget_page_alter( &$page ) {
-//  print '<p>Function idMyGadget_page_alter (in the module) - calling instantiateJmwsIdMyGadget()';
-//  print '</p>';
-  instantiateJmwsIdMyGadget();
-
   global $jmwsIdMyGadget;
+  instantiateJmwsIdMyGadget();
+  checkJmwsIdMyGadgetInstallation();
+
   print $jmwsIdMyGadget->getGadgetDetectorStringChar() . '/' . $jmwsIdMyGadget->getGadgetStringChar();
 }
 
 /**
- *
+ * Instantiate the idMyGadget object, telling it which underlying 3rd-party device detector to use
  * @global object $jmwsIdMyGadget
  */
 function instantiateJmwsIdMyGadget() {
@@ -46,7 +45,26 @@ function instantiateJmwsIdMyGadget() {
   $idMyGadgetClass = get_class( $jmwsIdMyGadget->getIdMyGadget() );
 }
 
+/**
+ * Calls jmwsIdMyGadget method to check installation of the selected underlying 3rd party
+ * device detection software, and if it is missing, displays appropriate message.
+ * Note that we can serve the page and all, it will just be the same for all device types.
+ */
+function checkJmwsIdMyGadgetInstallation() {
+  global $jmwsIdMyGadget;
 
+  if ( $jmwsIdMyGadget->isInstalled() ) {
+    unset( $jmwsIdMyGadget->errorMessage );
+  }
+  else {
+    $linkToReadmeOnGithub =
+      '<a href="' . $jmwsIdMyGadget->getLinkToReadme() . '" target="_blank">' .
+        'the appropriate README.md file on github.</a>';
+    $jmwsIdMyGadget->errorMessage = IDMYGADGET_DETECTOR_NOT_INSTALLED_OPENING .
+      $linkToReadmeOnGithub . IDMYGADGET_DETECTOR_NOT_INSTALLED_CLOSING;
+    drupal_set_message( t($jmwsIdMyGadget->errorMessage), 'error' );
+  }
+}
 
 /**
  * Implements hook_help().
