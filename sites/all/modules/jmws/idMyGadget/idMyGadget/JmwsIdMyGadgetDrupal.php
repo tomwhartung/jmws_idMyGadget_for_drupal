@@ -10,14 +10,6 @@ require_once 'JmwsIdMyGadget.php';
 class JmwsIdMyGadgetDrupal extends JmwsIdMyGadget
 {
 	/**
-	 * Array of gadget detectors currently supported by idMyGadget
-	 */
-	public static $supportedGadgetDetectors = array(
-		'detect_mobile_browsers',   // note that this is used as the default throughout
-		'mobile_detect',
-		'tera_wurfl'
-	);
-	/**
 	 * Array of themes that know how to use idMyGadget
 	 */
 	public static $supportedThemes = array(

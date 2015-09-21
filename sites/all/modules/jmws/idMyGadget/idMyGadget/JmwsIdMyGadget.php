@@ -35,6 +35,15 @@ class JmwsIdMyGadget
 	const JQUERY_MOBILE_JS_URL = 'http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js';
 
 	/**
+	 * Array of gadget detectors currently supported by idMyGadget
+	 */
+	public static $supportedGadgetDetectors = array(
+		'detect_mobile_browsers',   // note that this is used as the default throughout
+		'mobile_detect',
+		'tera_wurfl'
+	);
+
+	/**
 	 * The directory containing the idMyGadget code
 	 * Used to determine whether the selected gadget detector code is installed.
 	 */
