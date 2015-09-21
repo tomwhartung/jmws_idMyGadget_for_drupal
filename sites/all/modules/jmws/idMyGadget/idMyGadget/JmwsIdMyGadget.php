@@ -9,6 +9,13 @@ if( !defined('DS') )
 }
 require_once 'php/IdMyGadget.php';
 
+/**
+ * Error message for when the underlying 3rd party detection software is not installed
+ */
+define( 'IDMYGADGET_DETECTOR_NOT_INSTALLED_OPENING',
+	'<div class="idmygadget-error"><p>Third party device detector software is not installed.  To fix, see ' );
+define( 'IDMYGADGET_DETECTOR_NOT_INSTALLED_CLOSING', '</p></div>' );
+
 class JmwsIdMyGadget
 {
 	/**
