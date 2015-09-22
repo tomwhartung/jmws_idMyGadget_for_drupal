@@ -90,19 +90,28 @@ class JmwsIdMyGadget
 		if ( $gadgetDetectorString === IdMyGadget::GADGET_DETECTOR_DETECT_MOBILE_BROWSERS )
 		{
 			global $usingMobilePhone;
-			include_once 'gadget_detectors/detect_mobile_browsers/php/detectmobilebrowser.php';     // sets $usingMobilePhone global variable
+			if ( file_exists('gadget_detectors/detect_mobile_browsers/php/detectmobilebrowser.php') )
+			{
+				include_once 'gadget_detectors/detect_mobile_browsers/php/detectmobilebrowser.php';     // sets $usingMobilePhone global variable
+			}
 			include_once 'php/IdMyGadgetDetectMobileBrowsers.php';
 			$this->idMyGadget = new IdMyGadgetDetectMobileBrowsers( $debugging, $allowOverridesInUrl );
 		}
 		else if ( $gadgetDetectorString === IdMyGadget::GADGET_DETECTOR_MOBILE_DETECT )
 		{
-			include_once 'gadget_detectors/mobile_detect/Mobile-Detect/Mobile_Detect.php' ;
+			if ( file_exists('gadget_detectors/mobile_detect/Mobile-Detect/Mobile_Detect.php') )
+			{
+				include_once 'gadget_detectors/mobile_detect/Mobile-Detect/Mobile_Detect.php' ;
+			}
 			include_once 'php/IdMyGadgetMobileDetect.php';
 			$this->idMyGadget = new IdMyGadgetMobileDetect( $debugging, $allowOverridesInUrl );
 		}
 		else if ( $gadgetDetectorString === IdMyGadget::GADGET_DETECTOR_TERA_WURFL )
 		{
-			include_once 'gadget_detectors/tera_wurfl/Tera-Wurfl/wurfl-dbapi/TeraWurfl.php';
+			if ( file_exists('gadget_detectors/tera_wurfl/Tera-Wurfl/wurfl-dbapi/TeraWurfl.php') )
+			{
+				include_once 'gadget_detectors/tera_wurfl/Tera-Wurfl/wurfl-dbapi/TeraWurfl.php';
+			}
 			include_once 'php/IdMyGadgetTeraWurfl.php';
 			$this->idMyGadget = new IdMyGadgetTeraWurfl( $debugging, $allowOverridesInUrl );
 		}
