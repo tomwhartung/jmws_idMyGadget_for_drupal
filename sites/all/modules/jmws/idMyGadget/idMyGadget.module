@@ -58,7 +58,7 @@ function checkJmwsIdMyGadgetInstallation() {
   }
   else {
     $linkToReadmeOnGithub =
-      '<a href="' . $jmwsIdMyGadget->getLinkToReadme() . '" target="_blank">' .
+      '<a href="' . $jmwsIdMyGadget->getLinkToReadme() . '" class="idmygadget-error" target="_blank">' .
         'the appropriate README.md file on github.</a>';
     $jmwsIdMyGadget->errorMessage = IDMYGADGET_DETECTOR_NOT_INSTALLED_OPENING .
       $linkToReadmeOnGithub . IDMYGADGET_DETECTOR_NOT_INSTALLED_CLOSING;
