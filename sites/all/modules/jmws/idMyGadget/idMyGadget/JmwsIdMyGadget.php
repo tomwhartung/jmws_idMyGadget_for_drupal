@@ -91,7 +91,7 @@ class JmwsIdMyGadget
 		{
 			global $usingMobilePhone;
 			$fileToInclude = 'gadget_detectors/detect_mobile_browsers/php/detectmobilebrowser.php';
-			$fileToCheck = __DIR__ . DIRECTORY_SEPARATOR . $fileToInclude;
+			$fileToCheck = $this->idMyGadgetDir . DIRECTORY_SEPARATOR . $fileToInclude;
 			if ( file_exists($fileToCheck) )
 			{
 				include_once $fileToInclude;     // sets $usingMobilePhone global variable
@@ -102,7 +102,7 @@ class JmwsIdMyGadget
 		else if ( $gadgetDetectorString === IdMyGadget::GADGET_DETECTOR_MOBILE_DETECT )
 		{
 			$fileToInclude = 'gadget_detectors/mobile_detect/Mobile-Detect/Mobile_Detect.php';
-			$fileToCheck = __DIR__ . DIRECTORY_SEPARATOR . $fileToInclude;
+			$fileToCheck = $this->idMyGadgetDir . DIRECTORY_SEPARATOR . $fileToInclude;
 			if ( file_exists($fileToCheck) )
 			{
 				include_once $fileToInclude ;
@@ -113,7 +113,7 @@ class JmwsIdMyGadget
 		else if ( $gadgetDetectorString === IdMyGadget::GADGET_DETECTOR_TERA_WURFL )
 		{
 			$fileToInclude = 'gadget_detectors/tera_wurfl/Tera-Wurfl/wurfl-dbapi/TeraWurfl.php';
-			$fileToCheck = __DIR__ . DIRECTORY_SEPARATOR . $fileToInclude;
+			$fileToCheck = $this->idMyGadgetDir . DIRECTORY_SEPARATOR . $fileToInclude;
 			if ( file_exists($fileToCheck) )
 			{
 				include_once $fileToInclude;
