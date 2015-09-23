@@ -23,7 +23,8 @@ function idMyGadget_page_alter( &$page ) {
   instantiateJmwsIdMyGadget();
   checkJmwsIdMyGadgetInstallation();
 
-  print $jmwsIdMyGadget->getGadgetDetectorStringChar() . '/' . $jmwsIdMyGadget->getGadgetStringChar();
+  print '<p>' . $jmwsIdMyGadget->getGadgetDetectorStringChar() . '/' . $jmwsIdMyGadget->getGadgetStringChar() . '</p>';
+  // print '<p>__DIR__: ' . __DIR__ . '</p>';
 }
 
 /**
