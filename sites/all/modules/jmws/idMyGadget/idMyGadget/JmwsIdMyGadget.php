@@ -147,6 +147,44 @@ class JmwsIdMyGadget
 	{
 		return $this->idMyGadget->isInstalled();
 	}
+
+	/**
+	 * Returns TRUE if the device is a phone, else FALSE
+	 */
+	public function isPhone()
+	{
+		$isPhone = FALSE;
+		if ( $this->getGadgetString() === $this::GADGET_STRING_PHONE )
+		{
+			$isPhone = TRUE;
+		}
+		return $isPhone;
+	}
+	/**
+	 * Returns TRUE if the device is a phone, else FALSE
+	 */
+	public function isTablet()
+	{
+		$isTablet = FALSE;
+		if ( $this->getGadgetString() === $this::GADGET_STRING_TABLET )
+		{
+			$isTablet = TRUE;
+		}
+		return $isTablet;
+	}
+	/**
+	 * Returns TRUE if the device is a phone, else FALSE
+	 */
+	public function isDesktop()
+	{
+		$isDesktop = FALSE;
+		if ( $this->getGadgetString() === $this::GADGET_STRING_DESKTOP )
+		{
+			$isDesktop = TRUE;
+		}
+		return $isDesktop;
+	}
+
 	/**
 	 * Returns a link to the appropriate README.md file on github
 	 * TODO: Change this class to use the PHP magic get feature
