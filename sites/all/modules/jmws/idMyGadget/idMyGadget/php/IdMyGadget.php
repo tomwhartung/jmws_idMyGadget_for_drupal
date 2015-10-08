@@ -17,6 +17,7 @@ abstract class IdMyGadget
 	const GADGET_DETECTOR_DETECT_MOBILE_BROWSERS = 'detect_mobile_browsers';
 	const GADGET_DETECTOR_MOBILE_DETECT = 'mobile_detect';
 	const GADGET_DETECTOR_TERA_WURFL = 'tera_wurfl';
+	const GADGET_DETECTOR_NO_DETECTION = 'no_detection';
 
 	const GADGET_TYPE_UNKNOWN = 'unknown';
 	const GADGET_TYPE_UNRECOGNIZED = 'unrecognized';
