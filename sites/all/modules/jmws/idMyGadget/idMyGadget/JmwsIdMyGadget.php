@@ -128,6 +128,7 @@ class JmwsIdMyGadget
 		}
 		else
 		{
+			error_log( 'Warning: device detection has been disabled in the IdMyGadget administration console options.' );
 			include_once 'php/IdMyGadgetNoDetection.php';
 			$this->idMyGadget = new IdMyGadgetNoDetection( $debugging, $allowOverridesInUrl );
 		}

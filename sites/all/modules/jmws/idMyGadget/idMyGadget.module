@@ -15,9 +15,6 @@ require_once( 'idMyGadget/JmwsIdMyGadgetDrupal.php' );
 
 $jmwsIdMyGadget = null;
 
-// error_log( 'Hi there.' );
-// function template_preprocess
-
 function idMyGadget_page_alter( &$page ) {
   global $jmwsIdMyGadget;
   instantiateJmwsIdMyGadget();
@@ -33,17 +30,12 @@ function idMyGadget_page_alter( &$page ) {
  */
 function instantiateJmwsIdMyGadget() {
   global $jmwsIdMyGadget;         // needs to be global for realsies
-  global $gadgetDetectorIndex;    // global for debugging purposes, consider keeping it local when stable
-  global $gadgetDetectorString;   // global for debugging purposes, consider keeping it local when stable
-  global $idMyGadgetClass;        // global for debugging purposes, consider keeping it local when stable
 
   $gadgetDetectorIndex = variable_get( 'idMyGadget_gadget_detector', 0 );
   $supportedGadgetDetectors = JmwsIdMyGadgetDrupal::$supportedGadgetDetectors;
   $gadgetDetectorString = $supportedGadgetDetectors[$gadgetDetectorIndex];
-  $jmwsIdMyGadget = new JmwsIdMyGadgetDrupal($gadgetDetectorString);
+  $jmwsIdMyGadget = new JmwsIdMyGadgetDrupal( $gadgetDetectorString );
   $jmwsIdMyGadget->usingJQueryMobile = FALSE;
-
-  $idMyGadgetClass = get_class( $jmwsIdMyGadget->getIdMyGadget() );
 }
 
 /**
