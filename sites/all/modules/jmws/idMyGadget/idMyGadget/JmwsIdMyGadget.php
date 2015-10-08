@@ -40,9 +40,14 @@ class JmwsIdMyGadget
 	public static $supportedGadgetDetectors = array(
 		'detect_mobile_browsers',   // note that this is used as the default throughout
 		'mobile_detect',
-		'tera_wurfl'
+		'tera_wurfl',
+		'no_detection'      // defaults to desktop (allows for isolating responsive behavior)
 	);
 
+	/**
+	 * Boolean indicating whether device detection is enabled
+	 */
+	protected $detectionEnabled = FALSE;
 	/**
 	 * The directory containing the idMyGadget code
 	 * Used to determine whether the selected gadget detector code is installed.
@@ -121,6 +126,11 @@ class JmwsIdMyGadget
 			include_once 'php/IdMyGadgetTeraWurfl.php';
 			$this->idMyGadget = new IdMyGadgetTeraWurfl( $debugging, $allowOverridesInUrl );
 		}
+		else
+		{
+			include_once 'php/IdMyGadgetNoDetection.php';
+			$this->idMyGadget = new IdMyGadgetNoDetection( $debugging, $allowOverridesInUrl );
+		}
 
 		if ( $this->idMyGadget !== null )
 		{
@@ -129,6 +139,10 @@ class JmwsIdMyGadget
 			{
 				$this->deviceData = $this->idMyGadget->getDeviceData();
 				$this->gadgetString = getIdMyGadgetStringAllDevices( $this->deviceData );
+				if ( $this->idMyGadget->detectorUsed !== IdMyGadget::GADGET_DETECTOR_NO_DETECTION )
+				{
+					$this->detectionEnabled = TRUE;
+				}
 			}
 			else
 			{
@@ -146,6 +160,13 @@ class JmwsIdMyGadget
 	public function isInstalled()
 	{
 		return $this->idMyGadget->isInstalled();
+	}
+	/**
+	 * Returns TRUE if device detection is (installed and) enabled, else FALSE
+	 */
+	public function isEnabled()
+	{
+		return $this->detectionEnabled;
 	}
 
 	/**
