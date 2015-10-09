@@ -111,15 +111,29 @@ function idMyGadget_admin()
 
 /**
  * Implements hook_menu().
+ * Reference: https://www.drupal.org/node/1251942
  */
 function idMyGadget_menu()
 {
+	$items = array();
+
+	$items['admin/config/idmygadget'] = array(
+		'title' => 'IdMyGadget Header Settings',
+		'description' => 'Settings for device-dependent headings.',
+	//	'position' => 'left',
+	//	'weight' => -15,
+		'page callback' => 'system_admin_menu_block_page',
+		'page arguments' => array('idMyGadget_admin'),
+	//	'access arguments' => array('access administration pages'),
+		'access arguments' => array('administer idMyGadget settings'),
+	//	'file' => 'system.admin.inc',
+		'type' => MENU_NORMAL_ITEM,
+	);
+
 	//
 	// Add a section to the module's Settings screen that contains
 	// radio buttons allowing the admin to set the device detector.
 	//
-	$items = array();
-
 	$items['admin/config/development/idmygadget'] = array(
 		'title' => 'Idmygadget module settings',
 		'description' => 'Use this IdMyGadget settings page to change the device detector etc (tbd).',
@@ -140,7 +154,7 @@ function idMyGadget_menu()
  *   This same function is in stark_idMyGadget/template.php
  */
 function idMyGadget_page_alter_NOT( &$page ) {
-  print '<p>Entering page_alter in the module!</p>';
+  print '<p>Entering idMyGadget_page_alter_NOT (in the module)</p>';
 
   print '<p>';
   if ( isset($page['page_top']) ) {
@@ -208,5 +222,5 @@ function idMyGadget_page_alter_NOT( &$page ) {
   }
   print '</p>';
 
-  print '<p>Leaving page_alter in the module!</p>';
+  print '<p>Leaving idMyGadget_page_alter_NOT (in the module)</p>';
 }
