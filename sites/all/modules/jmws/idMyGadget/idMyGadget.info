@@ -4,5 +4,5 @@ package = Jmws
 version = VERSION
 core = 7.x
 files[] = jmws_idMyGadget_for_drupal.test
-configure = admin/config/development/idmygadget
+configure = admin/config/idmygadget
 

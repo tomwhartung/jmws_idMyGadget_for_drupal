@@ -13,8 +13,10 @@ define( 'IDMYGADGET_MODULE_DIR', __DIR__ . DIRECTORY_SEPARATOR . 'idMyGadget' );
 require_once( 'idMyGadget/JmwsIdMyGadgetDrupal.php' );
 // require_once 'jmws_idMyGadget_for_joomla/PhoneBurgerMenuIcon.php';
 
+/**
+ * Instantiate the idmygadget object and check the installation
+ */
 $jmwsIdMyGadget = null;
-
 function idMyGadget_page_alter( &$page ) {
   global $jmwsIdMyGadget;
   instantiateJmwsIdMyGadget();
@@ -74,7 +76,8 @@ function idMyGadget_help($path, $arg) {
       $output .= '<dd>' . t('yadda yadda yadda.') . '</dd>';
       $output .= '</dl>';
       return $output;
-    case 'admin/config/development/idmygadget/%':
+//  case 'admin/config/development/idmygadget/%':
+    case 'admin/config/idmygadget%':
       // if (user_access('switch shortcut sets')) {
       //   $output = '<p>' . t('Define which shortcut set you are using on the <a href="@shortcut-link">Shortcuts tab</a> of your account page.', array('@shortcut-link' => url("user/{$user->uid}/shortcut    s"))) . '</p>';
       //   return $output;
