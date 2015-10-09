@@ -117,25 +117,6 @@ function idMyGadget_menu()
 	$items = array();
 
 	//
-	// First rry to add a new section to the Configuration admin option screen
-	// Not working, not broken, not doing anything
-	// ********* PROBABLY WANT TO DELETE THIS CODE  *********
-	// Reference: https://www.drupal.org/node/1251942 (top of page)
-	//
-	$items['admin/config/idmygadgetNOTWORKING'] = array(
-		'title' => 'IdMyGadget Header Settings',
-		'description' => 'Settings for device-dependent headings.',
-	//	'position' => 'left',
-	//	'weight' => -15,
-		'page callback' => 'system_admin_menu_block_page',
-		'page arguments' => array('idMyGadget_admin'),
-	//	'access arguments' => array('access administration pages'),
-		'access arguments' => array('administer idMyGadget settings'),
-	//	'file' => 'system.admin.inc',
-		'type' => MENU_NORMAL_ITEM,
-	);
-
-	//
 	// Add a section to the module's Settings screen that contains
 	// radio buttons allowing the admin to set the device detector.
 	// This shows up under Configuration -> Development
@@ -149,21 +130,23 @@ function idMyGadget_menu()
 		'type' => MENU_NORMAL_ITEM,
 	);
 	//
-	// Second try to add a new section to the Configuration admin option screen
+	// First add a new section to the Configuration admin option screen
 	// Reference: https://www.drupal.org/node/1251942 (bottom of page)
 	//
 	$items['admin/config/idmygadget'] = array(
-		'title' => 'IdMyGadget Header Settings', //This is the area title (Configuration, People etc etc)
-		'description' => 'Settings for device-dependent headings.', // Like any other menu item
-		'position' => 'right', //Wether it is on the right or the left of the config page
-		'weight' => -15,
+		'title' => 'IdMyGadget Header Settings',
+		'description' => 'Settings for device-dependent headings.',
+		'position' => 'right',
+	//	'weight' => -15,
+		'weight' => 0,
 		'page callback' => 'system_admin_menu_block_page', //DONT CHANGE THIS!
 		'access arguments' => array('administer site configuration'), // Permission needed to view this area
 		'file' => 'system.admin.inc', //DONT CHANGE THIS!
 		'file path' => drupal_get_path('module', 'system'), //DONT CHANGE THIS!
 	);
-
-	//Now, this is an example of a menu item inside the menu area. NOTE the path follows on from your item above. i.e. admin/config/<menuarea>/<menuitem> you must use this structure for it to work.
+	//
+	// example of a menu item inside the menu area. NOTE the path follows on from your item above. i.e. admin/config/<menuarea>/<menuitem> you must use this structure for it to work.
+	//
 	$items['admin/config/idmygadget/settings'] = array(
 		'title' => 'Menu item title',
 		'description' => 'Description',
