@@ -76,7 +76,6 @@ function idMyGadget_help($path, $arg) {
       $output .= '<dd>' . t('yadda yadda yadda.') . '</dd>';
       $output .= '</dl>';
       return $output;
-//  case 'admin/config/development/idmygadget/%':
     case 'admin/config/idmygadget%':
       // if (user_access('switch shortcut sets')) {
       //   $output = '<p>' . t('Define which shortcut set you are using on the <a href="@shortcut-link">Shortcuts tab</a> of your account page.', array('@shortcut-link' => url("user/{$user->uid}/shortcut    s"))) . '</p>';
@@ -95,20 +94,25 @@ function idMyGadget_help($path, $arg) {
  */
 function idMyGadget_admin()
 {
-	$module_options = JmwsIdMyGadgetDrupal::$supportedGadgetDetectors;
-	$default     = JmwsIdMyGadgetDrupal::$supportedGadgetDetectors[0];
-
+	$supported_gadget_detectors = JmwsIdMyGadgetDrupal::$supportedGadgetDetectors;
+	$default_gadget_detector = JmwsIdMyGadgetDrupal::$supportedGadgetDetectors[0];
 	$form = array();
+	//
+	// Add a section to the module's Settings screen that contains
+	// radio buttons allowing the admin to set the device detector.
+	// This shows up under Configuration -> IdMyGadget -> Gadget Detector
+	//
 	$form['idMyGadget_gadget_detector'] = array(
 		'#type' => 'radios',
 		'#title' => t('Gadget Detector'),
 		'#default_value' => variable_get( 'idMyGadget_gadget_detector', JmwsIdMyGadgetDrupal::$supportedGadgetDetectors[0] ),
-		'#options' => $module_options,
+		'#options' => $supported_gadget_detectors,
 		'#description' => t('Select the 3rd party device detector to use for this site.'),
 		'#required' => TRUE,
 	);
 
-	variable_del( 'test_variable', 'value_of_test_variable' );
+//	variable_del( 'test_variable', 'value_of_test_variable' );
+
 	return system_settings_form( $form );
 }
 
@@ -135,22 +139,10 @@ function idMyGadget_menu()
 		'file path' => drupal_get_path('module', 'system'), //DONT CHANGE THIS!
 	);
 	//
-	// example of a menu item inside the menu area. NOTE the path follows on from your item above. i.e. admin/config/<menuarea>/<menuitem> you must use this structure for it to work.
-	//
-//	$items['admin/config/idmygadget/settings'] = array(
-//		'title' => 'Menu item title',
-//		'description' => 'Description',
-//		'page callback' => 'drupal_get_form', //in this case we're calling a form
-//		'page arguments' => array('mymodule_admin_form'), //this is the form function
-//		'access arguments' => array('administer site configuration'), //permissions
-//		'type' => MENU_NORMAL_ITEM, //menu type.
-//	);
-	//
 	// Add a section to the module's Settings screen that contains
 	// radio buttons allowing the admin to set the device detector.
-	// This shows up under Configuration -> Development
+	// This shows up under Configuration -> IdMyGadget -> Gadget Detector
 	//
-//	$items['admin/config/development/idmygadget'] = array(
 	$items['admin/config/idmygadget/settings'] = array(
 		'title' => 'Idmygadget module settings',
 		'description' => 'Use this IdMyGadget settings page to change the device detector etc (tbd).',
