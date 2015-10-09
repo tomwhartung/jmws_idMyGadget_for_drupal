@@ -43,6 +43,10 @@ class JmwsIdMyGadget
 		'tera_wurfl',
 		'no_detection'      // defaults to desktop (allows for isolating responsive behavior)
 	);
+	/**
+	 * Array of choices for yes/no radio buttons (e.g., show site name) on plugin page
+	 */
+	public static $radioChoices = array( 'Yes', 'No' );
 
 	/**
 	 * Boolean indicating whether device detection is enabled
