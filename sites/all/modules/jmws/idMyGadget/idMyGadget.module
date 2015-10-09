@@ -111,6 +111,17 @@ function idMyGadget_admin()
 		'#required' => TRUE,
 	);
 
+
+	$form['idmg_site_title_phone'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Site Title on Phones'),
+		'#default_value' => variable_get('idmg_site_title_phone', ''),
+		'#size' => 20,
+		'#maxlength' => 20,
+		'#description' => t("The site title to display on phones."),
+		'#required' => FALSE,
+	);
+
 //	variable_del( 'test_variable', 'value_of_test_variable' );
 
 	return system_settings_form( $form );
