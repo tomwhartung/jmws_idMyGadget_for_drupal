@@ -117,19 +117,6 @@ function idMyGadget_menu()
 	$items = array();
 
 	//
-	// Add a section to the module's Settings screen that contains
-	// radio buttons allowing the admin to set the device detector.
-	// This shows up under Configuration -> Development
-	//
-	$items['admin/config/development/idmygadget'] = array(
-		'title' => 'Idmygadget module settings',
-		'description' => 'Use this IdMyGadget settings page to change the device detector etc (tbd).',
-		'page callback' => 'drupal_get_form',
-		'page arguments' => array('idMyGadget_admin'),
-		'access arguments' => array('administer idMyGadget settings'),
-		'type' => MENU_NORMAL_ITEM,
-	);
-	//
 	// First add a new section to the Configuration admin option screen
 	// Reference: https://www.drupal.org/node/1251942 (bottom of page)
 	//
@@ -137,8 +124,8 @@ function idMyGadget_menu()
 		'title' => 'IdMyGadget Header Settings',
 		'description' => 'Settings for device-dependent headings.',
 		'position' => 'right',
-	//	'weight' => -15,
-		'weight' => 0,
+	//	'weight' => 0,      // where we probably want it (between development and web services)
+		'weight' => -17,    // ok for now (nearer top)
 		'page callback' => 'system_admin_menu_block_page', //DONT CHANGE THIS!
 		'access arguments' => array('administer site configuration'), // Permission needed to view this area
 		'file' => 'system.admin.inc', //DONT CHANGE THIS!
@@ -147,13 +134,27 @@ function idMyGadget_menu()
 	//
 	// example of a menu item inside the menu area. NOTE the path follows on from your item above. i.e. admin/config/<menuarea>/<menuitem> you must use this structure for it to work.
 	//
+//	$items['admin/config/idmygadget/settings'] = array(
+//		'title' => 'Menu item title',
+//		'description' => 'Description',
+//		'page callback' => 'drupal_get_form', //in this case we're calling a form
+//		'page arguments' => array('mymodule_admin_form'), //this is the form function
+//		'access arguments' => array('administer site configuration'), //permissions
+//		'type' => MENU_NORMAL_ITEM, //menu type.
+//	);
+	//
+	// Add a section to the module's Settings screen that contains
+	// radio buttons allowing the admin to set the device detector.
+	// This shows up under Configuration -> Development
+	//
+//	$items['admin/config/development/idmygadget'] = array(
 	$items['admin/config/idmygadget/settings'] = array(
-		'title' => 'Menu item title',
-		'description' => 'Description',
-		'page callback' => 'drupal_get_form', //in this case we're calling a form
-		'page arguments' => array('mymodule_admin_form'), //this is the form function
-		'access arguments' => array('administer site configuration'), //permissions
-		'type' => MENU_NORMAL_ITEM, //menu type.
+		'title' => 'Idmygadget module settings',
+		'description' => 'Use this IdMyGadget settings page to change the device detector etc (tbd).',
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('idMyGadget_admin'),
+		'access arguments' => array('administer idMyGadget settings'),
+		'type' => MENU_NORMAL_ITEM,
 	);
 
 	return $items;
