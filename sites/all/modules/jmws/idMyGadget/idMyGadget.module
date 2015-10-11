@@ -191,8 +191,8 @@ function idMyGadget_menu()
 	// Reference: https://www.drupal.org/node/1251942 (bottom of page)
 	//
 	$items['admin/config/idmygadget'] = array(
-		'title' => 'IdMyGadget Header Settings',
-		'description' => 'Settings for device-dependent headings.',
+		'title' => 'IdMyGadget Settings',
+		'description' => 'Settings for device-dependent headings and menus.',
 		'position' => 'right',
 		'weight' => -17,    // ok for now (nearer top)
 		'page callback' => 'system_admin_menu_block_page', //DONT CHANGE THIS!
@@ -205,8 +205,8 @@ function idMyGadget_menu()
 	// radio buttons allowing the admin to set the device detector.
 	// This shows up under Configuration -> IdMyGadget -> Gadget Detector
 	//
-	$items['admin/config/idmygadget/module/settings'] = array(
-		'title' => 'Idmygadget module settings',
+	$items['admin/config/idmygadget/detector'] = array(
+		'title' => 'IdMyGadget Detector Setting',
 		'description' => 'Set the IdMyGadget device detector.',
 		'page callback' => 'drupal_get_form',
 		'page arguments' => array('idMyGadget_admin_gadget_detector'),
@@ -218,7 +218,7 @@ function idMyGadget_menu()
 	// This shows up under Configuration -> IdMyGadget -> IdMyGadget Heading - Phones
 	//
 	$items['admin/config/idmygadget/heading/phones'] = array(
-		'title' => 'Idmygadget Heading - Phones',
+		'title' => 'IdMyGadget Heading - Phones',
 		'description' => 'Customize the heading displayed on phones.',
 		'page callback' => 'drupal_get_form',
 	//	'page arguments' => array('idMyGadget_admin_gadget_detector'),
