@@ -46,4 +46,125 @@ class JmwsIdMyGadgetDrupal extends JmwsIdMyGadget
 		$this->idMyGadgetDir = IDMYGADGET_MODULE_DIR;
 		parent::__construct( $gadgetDetectorString, $debugging, $allowOverridesInUrl );
 	}
+	/**
+	 * Based on the current device, access the device-dependent options set in the admin console
+	 * and use them to generate most of the markup for the heading
+	 * @return string Markup for site heading (name, logo, title, and description, each of which is optional)
+	 */
+	public function getLogoTitleDescriptionHtml(  )
+	{
+		global $base_url;
+		$logoTitleDescription = '';
+		$logoFile = '';
+		$siteName = variable_get( 'site_name', '' );
+		$siteTitle = '';
+		$siteDescription = '';
+		$anchorTagOpen = '<a href="' . $base_url . '" rel="home">';
+		$anchorTagClose = '</a>';
+
+		if ( $this->isPhone() )
+		{
+			$logoFile = variable_get( 'idmg_logo_file_phone' );
+			$siteTitle = variable_get( 'idmg_site_title_phone' );
+			$siteDescription = variable_get('idmg_site_description_phone');
+			if ( strlen($logoFile) > 0 )
+			{
+				$logoTitleDescription .= $anchorTagOpen;
+				$logoTitleDescription .= '<img src="' . $logoFile . '" class="logo-file-phone" alt="' . $siteName . '" />';
+				$logoTitleDescription .= $anchorTagClose;
+			}
+			if ( variable_get('idmg_show_site_name_phone') == 'yes' )
+			{
+				$logoTitleDescription .= '<' . variable_get('idmg_site_name_element_phone') . ' class="site-name-phone">';
+				$logoTitleDescription .= $anchorTagOpen;
+				$logoTitleDescription .= $siteName;
+				$logoTitleDescription .= $anchorTagClose;
+				$logoTitleDescription .= '</' . variable_get('idmg_site_name_element_phone') . '>';
+			}
+			if ( strlen($siteTitle) > 0 )
+			{
+				$logoTitleDescription .= '<' . variable_get('idmg_site_title_element_phone') . ' class="site-title-phone">';
+				$logoTitleDescription .= $anchorTagOpen;
+				$logoTitleDescription .= $siteTitle;
+				$logoTitleDescription .= $anchorTagClose;
+				$logoTitleDescription .= '</' . variable_get('idmg_site_title_element_phone') . '>';
+			}
+			if ( strlen($siteDescription) > 0 )
+			{
+				$logoTitleDescription .= '<' . variable_get('idmg_site_description_element_phone') . ' class="site-description-phone">';
+				$logoTitleDescription .= $siteDescription;
+				$logoTitleDescription .= '</' . variable_get('idmg_site_description_element_phone') . '>';
+			}
+		}
+		else if ( $this->isTablet() )
+		{
+			$logoFile = variable_get( 'idmg_logo_file_tablet' );
+			$siteTitle = variable_get('idmg_site_title_tablet');
+			$siteDescription = variable_get('idmg_site_description_tablet');
+			if ( strlen($logoFile) > 0 )
+			{
+				$logoTitleDescription .= $anchorTagOpen;
+				$logoTitleDescription .= '<img src="' . $logoFile . '" class="logo-file-tablet" alt="' . $siteName . '" />';
+				$logoTitleDescription .= $anchorTagClose;
+			}
+			if ( variable_get('idmg_show_site_name_tablet') == 'yes' )
+			{
+				$logoTitleDescription .= '<' . variable_get('idmg_site_name_element_tablet') . ' class="site-name-tablet">';
+				$logoTitleDescription .= $anchorTagOpen;
+				$logoTitleDescription .= $siteName;
+				$logoTitleDescription .= $anchorTagClose;
+				$logoTitleDescription .= '</' . variable_get('idmg_site_name_element_tablet') . '>';
+			}
+			if ( strlen($siteTitle) > 0 )
+			{
+				$logoTitleDescription .= '<' . variable_get('idmg_site_title_element_tablet') . ' class="site-title-tablet">';
+				$logoTitleDescription .= $anchorTagOpen;
+				$logoTitleDescription .= $siteTitle;
+				$logoTitleDescription .= $anchorTagClose;
+				$logoTitleDescription .= '</' . variable_get('idmg_site_title_element_tablet') . '>';
+			}
+			if ( strlen($siteDescription) > 0 )
+			{
+				$logoTitleDescription .= '<' . variable_get('idmg_site_description_element_tablet') . ' class="site-description-tablet">';
+				$logoTitleDescription .= $siteDescription;
+				$logoTitleDescription .= '</' . variable_get('idmg_site_description_element_tablet') . '>';
+			}
+		}
+		else
+		{
+			$logoFile = variable_get( 'idmg_logo_file_desktop' );
+			$siteTitle = variable_get('idmg_site_title_desktop');
+			$siteDescription = variable_get('idmg_site_description_desktop');
+			if ( strlen($logoFile) > 0 )
+			{
+				$logoTitleDescription .= $anchorTagOpen;
+				$logoTitleDescription .= '<img src="' . $logoFile . '" class="logo-file-desktop" alt="' . $siteName . '" />';
+				$logoTitleDescription .= $anchorTagClose;
+			}
+			if ( variable_get('idmg_show_site_name_desktop') == 'yes' )
+			{
+				$logoTitleDescription .= '<' . variable_get('idmg_site_name_element_desktop') . ' class="site-name-desktop">';
+				$logoTitleDescription .= $anchorTagOpen;
+				$logoTitleDescription .= $siteName;
+				$logoTitleDescription .= $anchorTagClose;
+				$logoTitleDescription .= '</' . variable_get('idmg_site_name_element_desktop') . '>';
+			}
+			if ( strlen($siteTitle) > 0 )
+			{
+				$logoTitleDescription .= '<' . variable_get('idmg_site_title_element_desktop') . ' class="site-title-desktop">';
+				$logoTitleDescription .= $anchorTagOpen;
+				$logoTitleDescription .= $siteTitle;
+				$logoTitleDescription .= $anchorTagClose;
+				$logoTitleDescription .= '</' . variable_get('idmg_site_title_element_desktop') . '>';
+			}
+			if ( strlen($siteDescription) > 0 )
+			{
+				$logoTitleDescription .= '<' . variable_get('idmg_site_description_element_desktop') . ' class="site-description-desktop">';
+				$logoTitleDescription .= $siteDescription;
+				$logoTitleDescription .= '</' . variable_get('idmg_site_description_element_desktop') . '>';
+			}
+		}
+
+		return $logoTitleDescription;
+	}
 }
