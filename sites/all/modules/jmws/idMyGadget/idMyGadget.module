@@ -119,64 +119,104 @@ function idMyGadget_admin_gadget_detector()
  */
 function idMyGadget_admin_heading_phones()
 {
+	$form = idMyGadget_admin_heading( 'phone' );
+	return system_settings_form( $form );
+}
+/**
+ * Admin config function to allow customization of the site heading on tablets
+ */
+function idMyGadget_admin_heading_tablets()
+{
+	$form = idMyGadget_admin_heading( 'tablet' );
+	return system_settings_form( $form );
+}
+/**
+ * Admin config function to allow customization of the site heading on desktops
+ */
+function idMyGadget_admin_heading_desktops()
+{
+	$form = idMyGadget_admin_heading( 'desktop' );
+	return system_settings_form( $form );
+}
+/**
+ * Admin config function to allow customization of the site heading on phones
+ */
+function idMyGadget_admin_heading( $gadget_type )
+{
 	$radio_choices = JmwsIdMyGadgetDrupal::$radioChoices;
 	$default_radio_choice = $radio_choices[0];
 	$valid_elements = JmwsIdMyGadgetDrupal::$validElements;
 	$default_valid_element = $valid_elements[0];
+
+	$gadget_type_plural = $gadget_type . 's';
+	$gadget_type_ucfirst = ucfirst( $gadget_type );
+	$gadget_type_plural_ucfirst = ucfirst( $gadget_type_plural );
 	$form = array();
 
-	$form['idmg_show_site_name_phone'] = array(
+	$setting_name = 'idmg_show_site_name_' . $gadget_type;   // e.g., 'idmg_show_site_name_phone'
+	$form[$setting_name] = array(
 		'#type' => 'radios',
-		'#title' => t('Show Site Name on Phones?'),
-		'#default_value' => variable_get( 'idmg_show_site_name_phone', $default_radio_choice ),
+		'#title' => t( 'Show Site Name on ' . $gadget_type_plural_ucfirst . '?' ),
+		'#default_value' => variable_get( $setting_name, $default_radio_choice ),
 		'#options' => $radio_choices,
-		'#description' => t('Select whether you want the name of this site to display in the header on phones.'),
-		'#required' => TRUE,
-	);
-	$form['idmg_site_name_element_phone'] = array(
-		'#type' => 'select',
-		'#title' => t('Site Name Element Phone'),
-		'#default_value' => variable_get( 'idmg_site_name_element_phone', $default_valid_element ),
-		'#options' => $valid_elements,
-		'#description' => t('Select the html element in which you want to display the name of this site in the header on phones.'),
-		'#required' => TRUE,
-	);
-	$form['idmg_site_title_phone'] = array(
-		'#type' => 'textfield',
-		'#title' => t('Site Title on Phones'),
-		'#default_value' => variable_get('idmg_site_title_phone', ''),
-		'#size' => 20,
-		'#maxlength' => 20,
-		'#description' => t("The site title to display on phones."),
-		'#required' => FALSE,
-	);
-	$form['idmg_site_title_element_phone'] = array(
-		'#type' => 'select',
-		'#title' => t('Site Title Element Phone'),
-		'#default_value' => variable_get( 'idmg_site_title_element_phone', $default_valid_element ),
-		'#options' => $valid_elements,
-		'#description' => t('Select the html element in which you want to display the site title in the header on phones.'),
-		'#required' => TRUE,
-	);
-	$form['idmg_site_slogan_phone'] = array(
-		'#type' => 'textfield',
-		'#title' => t('Site Slogan on Phones'),
-		'#default_value' => variable_get('idmg_site_slogan_phone', ''),
-		'#size' => 20,
-		'#maxlength' => 20,
-		'#description' => t("The site slogan to display on phones."),
-		'#required' => FALSE,
-	);
-	$form['idmg_site_slogan_element_phone'] = array(
-		'#type' => 'select',
-		'#title' => t('Site Slogan Element Phone'),
-		'#default_value' => variable_get( 'idmg_site_slogan_element_phone', $default_valid_element ),
-		'#options' => $valid_elements,
-		'#description' => t('Select the html element in which you want to display the site slogan in the header on phones.'),
+		'#description' => t( 'Select whether you want the name of this site to display in the header on ' . $gadget_type_plural . '.' ),
 		'#required' => TRUE,
 	);
 
-	return system_settings_form( $form );
+	$setting_name = 'idmg_site_name_element_' . $gadget_type;     // e.g., 'idmg_site_name_element_phone'
+	$form[$setting_name] = array(
+		'#type' => 'select',
+		'#title' => t( 'Site Name Element ' . $gadget_type_ucfirst ),
+		'#default_value' => variable_get( $setting_name, $default_valid_element ),
+		'#options' => $valid_elements,
+		'#description' => t( 'Select the html element in which you want to display the name of this site in the header on ' . $gadget_type_plural . '.' ),
+		'#required' => TRUE,
+	);
+
+	$setting_name = 'idmg_site_title_' . $gadget_type;     // e.g., 'idmg_site_title_phone'
+	$form[$setting_name] = array(
+		'#type' => 'textfield',
+		'#title' => t( 'Site Title on ' . $gadget_type_plural_ucfirst ),
+		'#default_value' => variable_get( $setting_name, '' ),
+		'#size' => 20,
+		'#maxlength' => 20,
+		'#description' => t( 'The site title to display on ' . $gadget_type_plural . '.' ),
+		'#required' => FALSE,
+	);
+
+	$setting_name = 'idmg_site_title_element_' . $gadget_type;     // e.g., 'idmg_site_title_element_phone'
+	$form[$setting_name] = array(
+		'#type' => 'select',
+		'#title' => t( 'Site Title Element ' . $gadget_type_ucfirst ),
+		'#default_value' => variable_get( $setting_name, $default_valid_element ),
+		'#options' => $valid_elements,
+		'#description' => t( 'Select the html element in which you want to display the site title in the header on ' . $gadget_type_plural . '.' ),
+		'#required' => TRUE,
+	);
+
+	$setting_name = 'idmg_site_slogan_' . $gadget_type;     // e.g., 'idmg_site_slogan_phone'
+	$form[$setting_name] = array(
+		'#type' => 'textfield',
+		'#title' => t( 'Site Slogan on ' . $gadget_type_plural_ucfirst ),
+		'#default_value' => variable_get( $setting_name, '' ),
+		'#size' => 20,
+		'#maxlength' => 20,
+		'#description' => t('The site slogan to display on ' . $gadget_type_plural . '.'),
+		'#required' => FALSE,
+	);
+
+	$setting_name = 'idmg_site_slogan_element_' . $gadget_type;     // e.g., 'idmg_site_slogan_element_phone'
+	$form[$setting_name] = array(
+		'#type' => 'select',
+		'#title' => t( 'Site Slogan Element ' . $gadget_type_ucfirst ),
+		'#default_value' => variable_get( $setting_name, $default_valid_element ),
+		'#options' => $valid_elements,
+		'#description' => t( 'Select the html element in which you want to display the site slogan in the header on ' . $gadget_type_plural . '.' ),
+		'#required' => TRUE,
+	);
+
+//	return system_settings_form( $form );
+	return $form;   // NOTE: calling fcn runs system_settings_form !!!
 }
 
 /**
@@ -231,17 +271,25 @@ function idMyGadget_menu()
 	);
 
 	//
-	// Add a section to the module's Settings screen that allows customizing the heading on phones
-	// This shows up under Configuration -> IdMyGadget -> IdMyGadget Heading - Phones
+	// Add a section to the module's Settings screen that allows customizing the heading on
+	// each gadget type
+	// This shows up under Configuration -> IdMyGadget -> IdMyGadget Heading - [gadget_type]
 	//
-	$items['admin/config/idmygadget/heading/phones'] = array(
-		'title' => 'IdMyGadget Heading - Phones',
-		'description' => 'Customize the heading displayed on phones.',
-		'page callback' => 'drupal_get_form',
-		'page arguments' => array('idMyGadget_admin_heading_phones'),
-		'access arguments' => array('administer idMyGadget settings'),
-		'type' => MENU_NORMAL_ITEM,
-	);
+	foreach( JmwsIdMyGadgetDrupal::$gadgetTypes as $gadget_type )
+	{
+		$gadget_type_plural = $gadget_type . 's';
+		$gadget_type_ucfirst = ucfirst( $gadget_type );
+		$items_key = 'admin/config/idmygadget/heading/' . $gadget_type_plural;  // e.g., '.../phones'
+		$page_arguments_fcn = 'idMyGadget_admin_heading_' . $gadget_type_plural; // e.g., 'idMyGadget_admin_heading_phones'
+		$items[$items_key] = array(
+			'title' => 'IdMyGadget Heading - ' . $gadget_type_ucfirst,
+			'description' => 'Customize the heading displayed on phones.',
+			'page callback' => 'drupal_get_form',
+			'page arguments' => array( $page_arguments_fcn ),
+			'access arguments' => array('administer idMyGadget settings'),
+			'type' => MENU_NORMAL_ITEM,
+		);
+	}
 
 	return $items;
 }
