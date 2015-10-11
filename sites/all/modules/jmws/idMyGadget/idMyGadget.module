@@ -150,6 +150,23 @@ function idMyGadget_admin()
 		'#description' => t('Select the html element in which you want to display the site title in the header on phones.'),
 		'#required' => TRUE,
 	);
+	$form['idmg_site_slogan_phone'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Site Slogan on Phones'),
+		'#default_value' => variable_get('idmg_site_slogan_phone', ''),
+		'#size' => 20,
+		'#maxlength' => 20,
+		'#description' => t("The site slogan to display on phones."),
+		'#required' => FALSE,
+	);
+	$form['idmg_site_slogan_element_phone'] = array(
+		'#type' => 'select',
+		'#title' => t('Site Slogan Element Phone'),
+		'#default_value' => variable_get( 'idmg_site_slogan_element_phone', $default_valid_element ),
+		'#options' => $valid_elements,
+		'#description' => t('Select the html element in which you want to display the site slogan in the header on phones.'),
+		'#required' => TRUE,
+	);
 
 	variable_del( 'idMyGadget_gadget_detector' );
 
