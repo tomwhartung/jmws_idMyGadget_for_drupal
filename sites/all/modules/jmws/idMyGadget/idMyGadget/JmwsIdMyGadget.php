@@ -47,6 +47,10 @@ class JmwsIdMyGadget
 	 * Array of choices for yes/no radio buttons (e.g., show site name) on plugin page
 	 */
 	public static $radioChoices = array( 'Yes', 'No' );
+	/**
+	 * Array of choices for lists of elements (e.g., site name, site title)
+	 */
+	public static $validElements = array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'div', 'span' );
 
 	/**
 	 * Boolean indicating whether device detection is enabled
