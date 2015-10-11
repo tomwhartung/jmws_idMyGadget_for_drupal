@@ -194,6 +194,7 @@ function idMyGadget_menu()
 		'title' => 'IdMyGadget Settings',
 		'description' => 'Settings for device-dependent headings and menus.',
 		'position' => 'right',
+		// 'weight' => 0,   // where we probably want it (between development and web services)
 		'weight' => -17,    // ok for now (nearer top)
 		'page callback' => 'system_admin_menu_block_page', //DONT CHANGE THIS!
 		'access arguments' => array('administer site configuration'), // Permission needed to view this area
@@ -214,6 +215,22 @@ function idMyGadget_menu()
 		'type' => MENU_NORMAL_ITEM,
 	);
 	//
+	// Add a section to the module's Settings screen that allows customizing the heading on specific devices
+	// This shows up under Configuration -> IdMyGadget -> IdMyGadget Heading
+	//
+	$items['admin/config/idmygadget/heading'] = array(
+		'title' => 'IdMyGadget Device-Dependent Headings',
+		'description' => 'Customize the heading displayed on phones, tablets, and desktops.',
+		'weight' => 0,
+	//	'page callback' => 'drupal_get_form',
+	//	'page arguments' => array('idMyGadget_admin_heading_phones'),
+		'page callback' => 'system_admin_menu_block_page', //DONT CHANGE THIS!
+		'access arguments' => array('administer site configuration'), // Permission needed to view this area
+		'file' => 'system.admin.inc', //DONT CHANGE THIS!
+		'file path' => drupal_get_path('module', 'system'), //DONT CHANGE THIS!
+	);
+
+	//
 	// Add a section to the module's Settings screen that allows customizing the heading on phones
 	// This shows up under Configuration -> IdMyGadget -> IdMyGadget Heading - Phones
 	//
@@ -221,7 +238,6 @@ function idMyGadget_menu()
 		'title' => 'IdMyGadget Heading - Phones',
 		'description' => 'Customize the heading displayed on phones.',
 		'page callback' => 'drupal_get_form',
-	//	'page arguments' => array('idMyGadget_admin_gadget_detector'),
 		'page arguments' => array('idMyGadget_admin_heading_phones'),
 		'access arguments' => array('administer idMyGadget settings'),
 		'type' => MENU_NORMAL_ITEM,
