@@ -153,6 +153,21 @@ function idMyGadget_admin_heading( $gadget_type )
 	$gadget_type_plural_ucfirst = ucfirst( $gadget_type_plural );
 	$form = array();
 
+	$setting_name = 'idmg_logo_file_' . $gadget_type;   // e.g., 'idmg_logo_file_phone'
+	$form[$setting_name] = array(
+		'#type' => 'file',
+	//	'#title' => t( 'Logo image for ' . $gadget_type_plural_ucfirst . '?' ),
+		'#title' => t( 'WTF is wrong with this title thingie?' ),
+		'#default_value' => variable_get( $setting_name, '' ),
+		'#description' => t( 'Specify an image to display in the heading of this site on ' . $gadget_type_plural . '.' ),
+	//	'#title_display' => 'invisible',
+	//	'#title_display' => 'before',
+		'#title_display' => 'after',
+		'#size' => 22,
+		'#theme_wrappers' => array(),
+		'#required' => FALSE,
+	);
+
 	$setting_name = 'idmg_show_site_name_' . $gadget_type;   // e.g., 'idmg_show_site_name_phone'
 	$form[$setting_name] = array(
 		'#type' => 'radios',
