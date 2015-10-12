@@ -170,7 +170,7 @@ function idMyGadget_admin_heading( $gadget_type )
 		'#default_value' => variable_get( $setting_name, $default_valid_element ),
 		'#options' => $valid_elements,
 		'#description' => t( 'Select the html element in which you want to display the name of this site in the header on ' . $gadget_type_plural . '.' ),
-		'#required' => TRUE,
+		'#required' => FALSE,
 	);
 
 	$setting_name = 'idmg_site_title_' . $gadget_type;     // e.g., 'idmg_site_title_phone'
@@ -191,7 +191,7 @@ function idMyGadget_admin_heading( $gadget_type )
 		'#default_value' => variable_get( $setting_name, $default_valid_element ),
 		'#options' => $valid_elements,
 		'#description' => t( 'Select the html element in which you want to display the site title in the header on ' . $gadget_type_plural . '.' ),
-		'#required' => TRUE,
+		'#required' => FALSE,
 	);
 
 	$setting_name = 'idmg_site_slogan_' . $gadget_type;     // e.g., 'idmg_site_slogan_phone'
@@ -212,7 +212,7 @@ function idMyGadget_admin_heading( $gadget_type )
 		'#default_value' => variable_get( $setting_name, $default_valid_element ),
 		'#options' => $valid_elements,
 		'#description' => t( 'Select the html element in which you want to display the site slogan in the header on ' . $gadget_type_plural . '.' ),
-		'#required' => TRUE,
+		'#required' => FALSE,
 	);
 
 //	return system_settings_form( $form );
@@ -236,10 +236,10 @@ function idMyGadget_menu()
 		'position' => 'right',
 		// 'weight' => 0,   // where we probably want it (between development and web services)
 		'weight' => -17,    // ok for now (nearer top)
-		'page callback' => 'system_admin_menu_block_page', //DONT CHANGE THIS!
+		'page callback' => 'system_admin_menu_block_page',            // DO NOT CHANGE THIS!
 		'access arguments' => array('administer site configuration'), // Permission needed to view this area
-		'file' => 'system.admin.inc', //DONT CHANGE THIS!
-		'file path' => drupal_get_path('module', 'system'), //DONT CHANGE THIS!
+		'file' => 'system.admin.inc',                                 // DO NOT CHANGE THIS!
+		'file path' => drupal_get_path('module', 'system'),           // DO NOT CHANGE THIS!
 	);
 	//
 	// Add a section to the module's Settings screen that contains
@@ -262,25 +262,23 @@ function idMyGadget_menu()
 		'title' => 'IdMyGadget Device-Dependent Headings',
 		'description' => 'Customize the heading displayed on phones, tablets, and desktops.',
 		'weight' => 0,
-	//	'page callback' => 'drupal_get_form',
-	//	'page arguments' => array('idMyGadget_admin_heading_phones'),
-		'page callback' => 'system_admin_menu_block_page', //DONT CHANGE THIS!
+		'page callback' => 'system_admin_menu_block_page',            // DO NOT CHANGE THIS!
 		'access arguments' => array('administer site configuration'), // Permission needed to view this area
-		'file' => 'system.admin.inc', //DONT CHANGE THIS!
-		'file path' => drupal_get_path('module', 'system'), //DONT CHANGE THIS!
+		'file' => 'system.admin.inc',                                 // DO NOT CHANGE THIS!
+		'file path' => drupal_get_path('module', 'system'),           // DO NOT CHANGE THIS!
 	);
 
 	//
 	// Add a section to the module's Settings screen that allows customizing the heading on
-	// each gadget type
+	// each gadget type ("phone", "tablet", "desktop")
 	// This shows up under Configuration -> IdMyGadget -> IdMyGadget Heading - [gadget_type]
 	//
 	foreach( JmwsIdMyGadgetDrupal::$gadgetTypes as $gadget_type )
 	{
 		$gadget_type_plural = $gadget_type . 's';
 		$gadget_type_ucfirst = ucfirst( $gadget_type );
-		$items_key = 'admin/config/idmygadget/heading/' . $gadget_type_plural;  // e.g., '.../phones'
-		$page_arguments_fcn = 'idMyGadget_admin_heading_' . $gadget_type_plural; // e.g., 'idMyGadget_admin_heading_phones'
+		$items_key = 'admin/config/idmygadget/heading/' . $gadget_type_plural;    // e.g., '.../heading/phones'
+		$page_arguments_fcn = 'idMyGadget_admin_heading_' . $gadget_type_plural;  // e.g., 'idMyGadget_admin_heading_phones'
 		$items[$items_key] = array(
 			'title' => 'IdMyGadget Heading - ' . $gadget_type_ucfirst,
 			'description' => 'Customize the heading displayed on phones.',
