@@ -153,13 +153,26 @@ function idMyGadget_admin_heading( $gadget_type )
 	$gadget_type_plural_ucfirst = ucfirst( $gadget_type_plural );
 	$form = array();
 
-	$setting_name = 'idmg_logo_file_' . $gadget_type;   // e.g., 'idmg_logo_file_phone'
+	$setting_name = 'idmg_logo_file_' . $gadget_type;     // e.g., 'idmg_logo_file_phone'
+	$form[$setting_name] = array(
+		'#type' => 'textfield',
+		'#title' => t( 'Logo for ' . $gadget_type_plural_ucfirst ),
+		'#default_value' => variable_get( $setting_name, '' ),
+		'#size' => 100,
+		'#maxlength' => 200,
+		'#description' => t( 'The logo image to display on ' . $gadget_type_plural . '.' ),
+		'#required' => FALSE,
+	);
+	//
+	// FIXME: This logo file field doesn't seem to work, but it's a step in the right direction
+	//
+	$setting_name = 'idmg_logo_file_upload_' . $gadget_type;   // e.g., 'idmg_logo_file_upload_phone'
 	$form[$setting_name] = array(
 		'#type' => 'file',
-	//	'#title' => t( 'Logo image for ' . $gadget_type_plural_ucfirst . '?' ),
+	//	'#title' => t( 'Upload logo image for ' . $gadget_type_plural_ucfirst . '?' ),
 		'#title' => t( 'WTF is wrong with this title thingie?' ),
 		'#default_value' => variable_get( $setting_name, '' ),
-		'#description' => t( 'Specify an image to display in the heading of this site on ' . $gadget_type_plural . '.' ),
+		'#description' => t( 'Upload an image to display in the heading of this site on ' . $gadget_type_plural . '.' ),
 	//	'#title_display' => 'invisible',
 	//	'#title_display' => 'before',
 		'#title_display' => 'after',
