@@ -19,7 +19,7 @@ require_once( 'idMyGadget/JmwsIdMyGadgetDrupal.php' );
 $jmwsIdMyGadget = null;
 function idMyGadget_page_alter( &$page ) {
   global $jmwsIdMyGadget;
-  instantiateJmwsIdMyGadget();
+  checkJmwsIdMyGadgetObject();
   checkJmwsIdMyGadgetInstallation();
 
   print '<p>' . $jmwsIdMyGadget->getGadgetDetectorStringChar() . '/' . $jmwsIdMyGadget->getGadgetStringChar() . '</p>';
@@ -27,17 +27,20 @@ function idMyGadget_page_alter( &$page ) {
 }
 
 /**
- * Instantiate the idMyGadget object, telling it which underlying 3rd-party device detector to use
+ * Check the idMyGadget object, instantiating it if necessary
+ * This is where we tell it which underlying 3rd-party device detector to use
  * @global object $jmwsIdMyGadget
  */
-function instantiateJmwsIdMyGadget() {
-  global $jmwsIdMyGadget;         // needs to be global for realsies
+function checkJmwsIdMyGadgetObject() {
+  global $jmwsIdMyGadget;
 
-  $gadgetDetectorIndex = variable_get( 'idmg_gadget_detector', 0 );
-  $supportedGadgetDetectors = JmwsIdMyGadgetDrupal::$supportedGadgetDetectors;
-  $gadgetDetectorString = $supportedGadgetDetectors[$gadgetDetectorIndex];
-  $jmwsIdMyGadget = new JmwsIdMyGadgetDrupal( $gadgetDetectorString );
-  $jmwsIdMyGadget->usingJQueryMobile = FALSE;
+  if( ! isset($jmwsIdMyGadget) ) {
+    $gadgetDetectorIndex = variable_get( 'idmg_gadget_detector', 0 );
+    $supportedGadgetDetectors = JmwsIdMyGadgetDrupal::$supportedGadgetDetectors;
+    $gadgetDetectorString = $supportedGadgetDetectors[$gadgetDetectorIndex];
+    $jmwsIdMyGadget = new JmwsIdMyGadgetDrupal( $gadgetDetectorString );
+    $jmwsIdMyGadget->usingJQueryMobile = FALSE;
+  }
 }
 
 /**
@@ -143,7 +146,10 @@ function idMyGadget_admin_heading_desktops()
  */
 function idMyGadget_admin_heading( $gadget_type )
 {
-	$radio_choices = JmwsIdMyGadgetDrupal::$radioChoices;
+	global $jmwsIdMyGadget;
+	checkJmwsIdMyGadgetObject();
+
+	$radio_choices = $jmwsIdMyGadget->translatedRadioChoices;
 	$default_radio_choice = $radio_choices[0];
 	$valid_elements = JmwsIdMyGadgetDrupal::$validElements;
 	$default_valid_element = $valid_elements[0];
