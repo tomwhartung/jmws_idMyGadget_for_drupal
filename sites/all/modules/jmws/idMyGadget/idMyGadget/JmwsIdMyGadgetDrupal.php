@@ -56,7 +56,7 @@ class JmwsIdMyGadgetDrupal extends JmwsIdMyGadget
 	 * and use them to generate most of the markup for the heading
 	 * @return string Markup for site heading (name, logo, title, and description, each of which is optional)
 	 */
-	public function getLogoTitleDescriptionHtml(  )
+	public function getLogoTitleDescriptionHtml()
 	{
 		global $base_url;
 		$logoTitleDescription = '';
@@ -78,7 +78,7 @@ class JmwsIdMyGadgetDrupal extends JmwsIdMyGadget
 				$logoTitleDescription .= '<img src="' . $logoFile . '" class="logo-file-phone" alt="' . $siteName . '" />';
 				$logoTitleDescription .= $anchorTagClose;
 			}
-			if ( variable_get('idmg_show_site_name_phone') == 'yes' )
+			if ( variable_get('idmg_show_site_name_phone') )
 			{
 				$siteNameElement = parent::$validElements[variable_get('idmg_site_name_element_phone')];
 				$logoTitleDescription .= '<' . $siteNameElement . ' class="site-name-phone">';
@@ -115,7 +115,7 @@ class JmwsIdMyGadgetDrupal extends JmwsIdMyGadget
 				$logoTitleDescription .= '<img src="' . $logoFile . '" class="logo-file-tablet" alt="' . $siteName . '" />';
 				$logoTitleDescription .= $anchorTagClose;
 			}
-			if ( variable_get('idmg_show_site_name_tablet') == 'yes' )
+			if ( variable_get('idmg_show_site_name_tablet') )
 			{
 				$siteNameElement = parent::$validElements[variable_get('idmg_site_name_element_tablet')];
 				$logoTitleDescription .= '<' . $siteNameElement . ' class="site-name-tablet">';
@@ -152,7 +152,7 @@ class JmwsIdMyGadgetDrupal extends JmwsIdMyGadget
 				$logoTitleDescription .= '<img src="' . $logoFile . '" class="logo-file-desktop" alt="' . $siteName . '" />';
 				$logoTitleDescription .= $anchorTagClose;
 			}
-			if ( variable_get('idmg_show_site_name_desktop') == 'yes' )
+			if ( variable_get('idmg_show_site_name_desktop') )
 			{
 				$siteNameElement = parent::$validElements[variable_get('idmg_site_name_element_desktop')];
 				$logoTitleDescription .= '<' . $siteNameElement . ' class="site-name-desktop">';

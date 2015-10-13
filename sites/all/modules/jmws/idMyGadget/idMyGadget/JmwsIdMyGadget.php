@@ -50,7 +50,7 @@ class JmwsIdMyGadget
 	/**
 	 * Array of choices for yes/no radio buttons (e.g., show site name) on plugin page
 	 */
-	public static $radioChoices = array( 'Yes', 'No' );
+	public static $radioChoices = array( 'No', 'Yes' );  // NOTE: 'No' must be the zeroeth elt ;-)
 	/**
 	 * Array of choices for lists of elements (e.g., site name, site title)
 	 */
