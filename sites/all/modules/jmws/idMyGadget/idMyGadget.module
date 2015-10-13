@@ -151,7 +151,7 @@ function idMyGadget_admin_heading( $gadget_type )
 
 	$radio_choices = $jmwsIdMyGadget->translatedRadioChoices;
 	$default_radio_choice = $radio_choices[0];
-	$valid_elements = $jmwsIdMyGadget->translatedValidElements;
+	$valid_elements = JmwsIdMyGadgetDrupal::$validElements;
 	$default_valid_element = $valid_elements[0];
 
 	$gadget_type_plural = $gadget_type . 's';

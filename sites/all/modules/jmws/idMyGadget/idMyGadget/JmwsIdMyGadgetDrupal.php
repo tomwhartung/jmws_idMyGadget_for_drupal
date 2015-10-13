@@ -21,10 +21,6 @@ class JmwsIdMyGadgetDrupal extends JmwsIdMyGadget
 	 */
 	public $translatedRadioChoices = array();
 	/**
-	 * Translated version of the valid elements options defined (as static) in the parent class
-	 */
-	public $translatedValidElements = array();
-	/**
 	 * Used by when this plugin is not installed or active, etc.
 	 * Set only when there's an error.
 	 */
@@ -63,10 +59,6 @@ class JmwsIdMyGadgetDrupal extends JmwsIdMyGadget
 		foreach( parent::$radioChoices as $aChoice )
 		{
 			array_push( $this->translatedRadioChoices, t($aChoice) );
-		}
-		foreach( parent::$validElements as $anElt )
-		{
-			array_push( $this->translatedValidElements, t($anElt) );
 		}
 	}
 	/**
