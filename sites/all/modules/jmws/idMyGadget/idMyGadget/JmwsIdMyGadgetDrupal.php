@@ -78,7 +78,7 @@ class JmwsIdMyGadgetDrupal extends JmwsIdMyGadget
 				$logoTitleDescription .= '<img src="' . $logoFile . '" class="logo-file-phone" alt="' . $siteName . '" />';
 				$logoTitleDescription .= $anchorTagClose;
 			}
-			if ( variable_get('idmg_show_site_name_phone') )
+			if ( variable_get('idmg_show_site_name_phone') )   // NOTE: 'No' must be the zeroeth elt
 			{
 				$siteNameElement = parent::$validElements[variable_get('idmg_site_name_element_phone')];
 				$logoTitleDescription .= '<' . $siteNameElement . ' class="site-name-phone">';
@@ -115,7 +115,7 @@ class JmwsIdMyGadgetDrupal extends JmwsIdMyGadget
 				$logoTitleDescription .= '<img src="' . $logoFile . '" class="logo-file-tablet" alt="' . $siteName . '" />';
 				$logoTitleDescription .= $anchorTagClose;
 			}
-			if ( variable_get('idmg_show_site_name_tablet') )
+			if ( variable_get('idmg_show_site_name_tablet') )   // NOTE: 'No' must be the zeroeth elt
 			{
 				$siteNameElement = parent::$validElements[variable_get('idmg_site_name_element_tablet')];
 				$logoTitleDescription .= '<' . $siteNameElement . ' class="site-name-tablet">';
@@ -152,7 +152,7 @@ class JmwsIdMyGadgetDrupal extends JmwsIdMyGadget
 				$logoTitleDescription .= '<img src="' . $logoFile . '" class="logo-file-desktop" alt="' . $siteName . '" />';
 				$logoTitleDescription .= $anchorTagClose;
 			}
-			if ( variable_get('idmg_show_site_name_desktop') )
+			if ( variable_get('idmg_show_site_name_desktop') )   // NOTE: 'No' must be the zeroeth elt
 			{
 				$siteNameElement = parent::$validElements[variable_get('idmg_site_name_element_desktop')];
 				$logoTitleDescription .= '<' . $siteNameElement . ' class="site-name-desktop">';

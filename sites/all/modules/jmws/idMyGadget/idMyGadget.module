@@ -228,7 +228,7 @@ function idMyGadget_admin_heading( $gadget_type )
 		'#required' => FALSE,
 	);
 
-	$setting_name = 'idmg_site_slogan_' . $gadget_type;     // e.g., 'idmg_site_slogan_phone'
+	$setting_name = 'idmg_site_description_' . $gadget_type;     // e.g., 'idmg_site_description_phone'
 	$form[$setting_name] = array(
 		'#type' => 'textfield',
 		'#title' => t( 'Site Slogan on ' . $gadget_type_plural_ucfirst ),
@@ -239,7 +239,7 @@ function idMyGadget_admin_heading( $gadget_type )
 		'#required' => FALSE,
 	);
 
-	$setting_name = 'idmg_site_slogan_element_' . $gadget_type;     // e.g., 'idmg_site_slogan_element_phone'
+	$setting_name = 'idmg_site_description_element_' . $gadget_type;     // e.g., 'idmg_site_description_element_phone'
 	$form[$setting_name] = array(
 		'#type' => 'select',
 		'#title' => t( 'Site Slogan Element ' . $gadget_type_ucfirst ),
@@ -248,6 +248,13 @@ function idMyGadget_admin_heading( $gadget_type )
 		'#description' => t( 'Select the html element in which you want to display the site slogan in the header on ' . $gadget_type_plural . '.' ),
 		'#required' => FALSE,
 	);
+
+  variable_del( 'idmg_site_slogan_phone' );
+  variable_del( 'idmg_site_slogan_tablet' );
+  variable_del( 'idmg_site_slogan_desktop' );
+  variable_del( 'idmg_site_slogan_element_phone' );
+  variable_del( 'idmg_site_slogan_element_tablet' );
+  variable_del( 'idmg_site_slogan_element_desktop' );
 
 //	return system_settings_form( $form );
 	return $form;   // NOTE: calling fcn runs system_settings_form !!!
