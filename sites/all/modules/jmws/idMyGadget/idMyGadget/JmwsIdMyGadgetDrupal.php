@@ -52,16 +52,6 @@ class JmwsIdMyGadgetDrupal extends JmwsIdMyGadget
 		$this->translateStaticArrays();
 	}
 	/**
-	 * Translate the static gadgetTypes array to get the non-static array $translatedGadgetTypes
-	 */
-	public function translateStaticArrays()
-	{
-		foreach( parent::$radioChoices as $aChoice )
-		{
-			array_push( $this->translatedRadioChoices, t($aChoice) );
-		}
-	}
-	/**
 	 * Based on the current device, access the device-dependent options set in the admin console
 	 * and use them to generate most of the markup for the heading
 	 * @return string Markup for site heading (name, logo, title, and description, each of which is optional)
@@ -181,5 +171,15 @@ class JmwsIdMyGadgetDrupal extends JmwsIdMyGadget
 		}
 
 		return $logoTitleDescription;
+	}
+	/**
+	 * Translate the static radioChoices array to get the non-static array translatedRadioChoices
+	 */
+	protected function translateStaticArrays()
+	{
+		foreach( parent::$radioChoices as $aChoice )
+		{
+			array_push( $this->translatedRadioChoices, t($aChoice) );
+		}
 	}
 }
