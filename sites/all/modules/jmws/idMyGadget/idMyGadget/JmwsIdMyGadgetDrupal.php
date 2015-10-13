@@ -17,6 +17,10 @@ class JmwsIdMyGadgetDrupal extends JmwsIdMyGadget
 		'jmws_twentyfifteen_idMyGadget'
 	);
 	/**
+	 * Translated version of the radio button choices defined (as static) in the parent class
+	 */
+	public $translatedRadioChoices = array();
+	/**
 	 * Used by when this plugin is not installed or active, etc.
 	 * Set only when there's an error.
 	 */
@@ -45,6 +49,17 @@ class JmwsIdMyGadgetDrupal extends JmwsIdMyGadget
 	{
 		$this->idMyGadgetDir = IDMYGADGET_MODULE_DIR;
 		parent::__construct( $gadgetDetectorString, $debugging, $allowOverridesInUrl );
+		$this->translateStaticArrays();
+	}
+	/**
+	 * Translate the static gadgetTypes array to get the non-static array $translatedGadgetTypes
+	 */
+	public function translateStaticArrays()
+	{
+		foreach( parent::$radioChoices as $aChoice )
+		{
+			array_push( $this->translatedRadioChoices, t($aChoice) );
+		}
 	}
 	/**
 	 * Based on the current device, access the device-dependent options set in the admin console
