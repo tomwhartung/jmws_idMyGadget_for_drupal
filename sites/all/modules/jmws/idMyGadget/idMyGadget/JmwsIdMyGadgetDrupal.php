@@ -80,25 +80,28 @@ class JmwsIdMyGadgetDrupal extends JmwsIdMyGadget
 			}
 			if ( variable_get('idmg_show_site_name_phone') == 'yes' )
 			{
-				$logoTitleDescription .= '<' . variable_get('idmg_site_name_element_phone') . ' class="site-name-phone">';
+				$siteNameElement = parent::$validElements[variable_get('idmg_site_name_element_phone')];
+				$logoTitleDescription .= '<' . $siteNameElement . ' class="site-name-phone">';
 				$logoTitleDescription .= $anchorTagOpen;
 				$logoTitleDescription .= $siteName;
 				$logoTitleDescription .= $anchorTagClose;
-				$logoTitleDescription .= '</' . variable_get('idmg_site_name_element_phone') . '>';
+				$logoTitleDescription .= '</' . $siteNameElement . '>';
 			}
 			if ( strlen($siteTitle) > 0 )
 			{
-				$logoTitleDescription .= '<' . variable_get('idmg_site_title_element_phone') . ' class="site-title-phone">';
+				$siteTitleElement = parent::$validElements[variable_get('idmg_site_title_element_phone')];
+				$logoTitleDescription .= '<' . $siteTitleElement . ' class="site-title-phone">';
 				$logoTitleDescription .= $anchorTagOpen;
 				$logoTitleDescription .= $siteTitle;
 				$logoTitleDescription .= $anchorTagClose;
-				$logoTitleDescription .= '</' . variable_get('idmg_site_title_element_phone') . '>';
+				$logoTitleDescription .= '</' . $siteTitleElement . '>';
 			}
 			if ( strlen($siteDescription) > 0 )
 			{
-				$logoTitleDescription .= '<' . variable_get('idmg_site_description_element_phone') . ' class="site-description-phone">';
+				$siteDescriptionElement = parent::$validElements[variable_get('idmg_site_description_element_phone')];
+				$logoTitleDescription .= '<' . $siteDescriptionElement . ' class="site-description-phone">';
 				$logoTitleDescription .= $siteDescription;
-				$logoTitleDescription .= '</' . variable_get('idmg_site_description_element_phone') . '>';
+				$logoTitleDescription .= '</' . $siteDescriptionElement . '>';
 			}
 		}
 		else if ( $this->isTablet() )
@@ -114,25 +117,28 @@ class JmwsIdMyGadgetDrupal extends JmwsIdMyGadget
 			}
 			if ( variable_get('idmg_show_site_name_tablet') == 'yes' )
 			{
-				$logoTitleDescription .= '<' . variable_get('idmg_site_name_element_tablet') . ' class="site-name-tablet">';
+				$siteNameElement = parent::$validElements[variable_get('idmg_site_name_element_tablet')];
+				$logoTitleDescription .= '<' . $siteNameElement . ' class="site-name-tablet">';
 				$logoTitleDescription .= $anchorTagOpen;
 				$logoTitleDescription .= $siteName;
 				$logoTitleDescription .= $anchorTagClose;
-				$logoTitleDescription .= '</' . variable_get('idmg_site_name_element_tablet') . '>';
+				$logoTitleDescription .= '</' . $siteNameElement . '>';
 			}
 			if ( strlen($siteTitle) > 0 )
 			{
-				$logoTitleDescription .= '<' . variable_get('idmg_site_title_element_tablet') . ' class="site-title-tablet">';
+				$siteTitleElement = parent::$validElements[variable_get('idmg_site_title_element_tablet')];
+				$logoTitleDescription .= '<' . $siteTitleElement . ' class="site-title-tablet">';
 				$logoTitleDescription .= $anchorTagOpen;
 				$logoTitleDescription .= $siteTitle;
 				$logoTitleDescription .= $anchorTagClose;
-				$logoTitleDescription .= '</' . variable_get('idmg_site_title_element_tablet') . '>';
+				$logoTitleDescription .= '</' . $siteTitleElement . '>';
 			}
 			if ( strlen($siteDescription) > 0 )
 			{
-				$logoTitleDescription .= '<' . variable_get('idmg_site_description_element_tablet') . ' class="site-description-tablet">';
+				$siteDescriptionElement = parent::$validElements[variable_get('idmg_site_description_element_tablet')];
+				$logoTitleDescription .= '<' . $siteDescriptionElement . ' class="site-description-tablet">';
 				$logoTitleDescription .= $siteDescription;
-				$logoTitleDescription .= '</' . variable_get('idmg_site_description_element_tablet') . '>';
+				$logoTitleDescription .= '</' . $siteDescriptionElement . '>';
 			}
 		}
 		else
@@ -148,31 +154,35 @@ class JmwsIdMyGadgetDrupal extends JmwsIdMyGadget
 			}
 			if ( variable_get('idmg_show_site_name_desktop') == 'yes' )
 			{
-				$logoTitleDescription .= '<' . variable_get('idmg_site_name_element_desktop') . ' class="site-name-desktop">';
+				$siteNameElement = parent::$validElements[variable_get('idmg_site_name_element_desktop')];
+				$logoTitleDescription .= '<' . $siteNameElement . ' class="site-name-desktop">';
 				$logoTitleDescription .= $anchorTagOpen;
 				$logoTitleDescription .= $siteName;
 				$logoTitleDescription .= $anchorTagClose;
-				$logoTitleDescription .= '</' . variable_get('idmg_site_name_element_desktop') . '>';
+				$logoTitleDescription .= '</' . $siteNameElement . '>';
 			}
 			if ( strlen($siteTitle) > 0 )
 			{
-				$logoTitleDescription .= '<' . variable_get('idmg_site_title_element_desktop') . ' class="site-title-desktop">';
+				$siteTitleElement = parent::$validElements[variable_get('idmg_site_title_element_desktop')];
+				$logoTitleDescription .= '<' . $siteTitleElement . ' class="site-title-desktop">';
 				$logoTitleDescription .= $anchorTagOpen;
 				$logoTitleDescription .= $siteTitle;
 				$logoTitleDescription .= $anchorTagClose;
-				$logoTitleDescription .= '</' . variable_get('idmg_site_title_element_desktop') . '>';
+				$logoTitleDescription .= '</' . $siteTitleElement . '>';
 			}
 			if ( strlen($siteDescription) > 0 )
 			{
-				$logoTitleDescription .= '<' . variable_get('idmg_site_description_element_desktop') . ' class="site-description-desktop">';
+				$siteDescriptionElement = parent::$validElements[variable_get('idmg_site_description_element_desktop')];
+				$logoTitleDescription .= '<' . $siteDescriptionElement . ' class="site-description-desktop">';
 				$logoTitleDescription .= $siteDescription;
-				$logoTitleDescription .= '</' . variable_get('idmg_site_description_element_desktop') . '>';
+				$logoTitleDescription .= '</' . $siteDescriptionElement . '>';
 			}
 		}
 
 		return $logoTitleDescription;
 	}
-	/**
+
+  /**
 	 * Translate the static radioChoices array to get the non-static array translatedRadioChoices
 	 */
 	protected function translateStaticArrays()
