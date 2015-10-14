@@ -56,17 +56,27 @@ class JmwsIdMyGadgetDrupal extends JmwsIdMyGadget
 	 * and use them to generate most of the markup for the heading
 	 * @return string Markup for site heading (name, logo, title, and description, each of which is optional)
 	 */
-	public function getLogoTitleDescriptionHtml()
+	public function getLogoTitleDescriptionHtml( $front_page='' )
 	{
 		global $base_url;
-		$logoTitleDescription = '';
+
+		if ( $front_page === '' )
+		{
+			$front_page = $base_url;
+		}
+
+		$logoTitleDescription = '';  // the return value of this method
 		$logoFile = '';
 		$logoImgSrc = $base_url . '/sites/default/files/';
 		$siteName = variable_get( 'site_name', '' );
 		$siteTitle = '';
 		$siteDescription = '';
-		$anchorTagOpen = '<a href="' . $base_url . '" rel="home">';
-		$anchorTagClose = '</a>';
+		$siteNameTitleSloganOpen = '<div id="name-and-slogan">';
+		$siteNameTitleSloganClose = '</div><!-- #name-and-slogan -->';
+		$logoAnchorTagOpen = '<a href="' . $front_page . '" title="' . t('Home') . '" rel="home" id="logo">';
+		$logoAnchorTagClose = '</a>';
+		$textAnchorTagOpen = '<a href="' . $front_page . '" title="' . t('Home') . '" rel="home">';
+		$textAnchorTagClose = '</a>';
 
 		if ( $this->isPhone() )
 		{
@@ -76,26 +86,27 @@ class JmwsIdMyGadgetDrupal extends JmwsIdMyGadget
 			if ( strlen($logoFile) > 0 )
 			{
 				$logoImgSrc .= $logoFile;
-				$logoTitleDescription .= $anchorTagOpen;
+				$logoTitleDescription .= $logoAnchorTagOpen;
 				$logoTitleDescription .= '<img src="' . $logoImgSrc . '" class="logo-file-phone" alt="' . $siteName . '" />';
-				$logoTitleDescription .= $anchorTagClose;
+				$logoTitleDescription .= $logoAnchorTagClose;
 			}
+			$logoImgSrc .= $siteNameTitleSloganOpen;
 			if ( variable_get('idmg_show_site_name_phone') )   // NOTE: 'No' must be the zeroeth elt
 			{
 				$siteNameElement = parent::$validElements[variable_get('idmg_site_name_element_phone')];
 				$logoTitleDescription .= '<' . $siteNameElement . ' class="site-name-phone">';
-				$logoTitleDescription .= $anchorTagOpen;
+				$logoTitleDescription .= $textAnchorTagOpen;
 				$logoTitleDescription .= $siteName;
-				$logoTitleDescription .= $anchorTagClose;
+				$logoTitleDescription .= $textAnchorTagClose;
 				$logoTitleDescription .= '</' . $siteNameElement . '>';
 			}
 			if ( strlen($siteTitle) > 0 )
 			{
 				$siteTitleElement = parent::$validElements[variable_get('idmg_site_title_element_phone')];
 				$logoTitleDescription .= '<' . $siteTitleElement . ' class="site-title-phone">';
-				$logoTitleDescription .= $anchorTagOpen;
+				$logoTitleDescription .= $textAnchorTagOpen;
 				$logoTitleDescription .= $siteTitle;
-				$logoTitleDescription .= $anchorTagClose;
+				$logoTitleDescription .= $textAnchorTagClose;
 				$logoTitleDescription .= '</' . $siteTitleElement . '>';
 			}
 			if ( strlen($siteDescription) > 0 )
@@ -105,6 +116,7 @@ class JmwsIdMyGadgetDrupal extends JmwsIdMyGadget
 				$logoTitleDescription .= $siteDescription;
 				$logoTitleDescription .= '</' . $siteDescriptionElement . '>';
 			}
+			$logoImgSrc .= $siteNameTitleSloganClose;
 		}
 		else if ( $this->isTablet() )
 		{
@@ -114,26 +126,27 @@ class JmwsIdMyGadgetDrupal extends JmwsIdMyGadget
 			if ( strlen($logoFile) > 0 )
 			{
 				$logoImgSrc .= $logoFile;
-				$logoTitleDescription .= $anchorTagOpen;
+				$logoTitleDescription .= $logoAnchorTagOpen;
 				$logoTitleDescription .= '<img src="' . $logoImgSrc . '" class="logo-file-tablet" alt="' . $siteName . '" />';
-				$logoTitleDescription .= $anchorTagClose;
+				$logoTitleDescription .= $logoAnchorTagClose;
 			}
+			$logoImgSrc .= $siteNameTitleSloganOpen;
 			if ( variable_get('idmg_show_site_name_tablet') )   // NOTE: 'No' must be the zeroeth elt
 			{
 				$siteNameElement = parent::$validElements[variable_get('idmg_site_name_element_tablet')];
 				$logoTitleDescription .= '<' . $siteNameElement . ' class="site-name-tablet">';
-				$logoTitleDescription .= $anchorTagOpen;
+				$logoTitleDescription .= $textAnchorTagOpen;
 				$logoTitleDescription .= $siteName;
-				$logoTitleDescription .= $anchorTagClose;
+				$logoTitleDescription .= $textAnchorTagClose;
 				$logoTitleDescription .= '</' . $siteNameElement . '>';
 			}
 			if ( strlen($siteTitle) > 0 )
 			{
 				$siteTitleElement = parent::$validElements[variable_get('idmg_site_title_element_tablet')];
 				$logoTitleDescription .= '<' . $siteTitleElement . ' class="site-title-tablet">';
-				$logoTitleDescription .= $anchorTagOpen;
+				$logoTitleDescription .= $textAnchorTagOpen;
 				$logoTitleDescription .= $siteTitle;
-				$logoTitleDescription .= $anchorTagClose;
+				$logoTitleDescription .= $textAnchorTagClose;
 				$logoTitleDescription .= '</' . $siteTitleElement . '>';
 			}
 			if ( strlen($siteDescription) > 0 )
@@ -143,6 +156,7 @@ class JmwsIdMyGadgetDrupal extends JmwsIdMyGadget
 				$logoTitleDescription .= $siteDescription;
 				$logoTitleDescription .= '</' . $siteDescriptionElement . '>';
 			}
+			$logoImgSrc .= $siteNameTitleSloganClose;
 		}
 		else
 		{
@@ -152,26 +166,27 @@ class JmwsIdMyGadgetDrupal extends JmwsIdMyGadget
 			if ( strlen($logoFile) > 0 )
 			{
 				$logoImgSrc .= $logoFile;
-				$logoTitleDescription .= $anchorTagOpen;
+				$logoTitleDescription .= $logoAnchorTagOpen;
 				$logoTitleDescription .= '<img src="' . $logoImgSrc . '" class="logo-file-desktop" alt="' . $siteName . '" />';
-				$logoTitleDescription .= $anchorTagClose;
+				$logoTitleDescription .= $logoAnchorTagClose;
 			}
+			$logoImgSrc .= $siteNameTitleSloganOpen;
 			if ( variable_get('idmg_show_site_name_desktop') )   // NOTE: 'No' must be the zeroeth elt
 			{
 				$siteNameElement = parent::$validElements[variable_get('idmg_site_name_element_desktop')];
 				$logoTitleDescription .= '<' . $siteNameElement . ' class="site-name-desktop">';
-				$logoTitleDescription .= $anchorTagOpen;
+				$logoTitleDescription .= $textAnchorTagOpen;
 				$logoTitleDescription .= $siteName;
-				$logoTitleDescription .= $anchorTagClose;
+				$logoTitleDescription .= $textAnchorTagClose;
 				$logoTitleDescription .= '</' . $siteNameElement . '>';
 			}
 			if ( strlen($siteTitle) > 0 )
 			{
 				$siteTitleElement = parent::$validElements[variable_get('idmg_site_title_element_desktop')];
 				$logoTitleDescription .= '<' . $siteTitleElement . ' class="site-title-desktop">';
-				$logoTitleDescription .= $anchorTagOpen;
+				$logoTitleDescription .= $textAnchorTagOpen;
 				$logoTitleDescription .= $siteTitle;
-				$logoTitleDescription .= $anchorTagClose;
+				$logoTitleDescription .= $textAnchorTagClose;
 				$logoTitleDescription .= '</' . $siteTitleElement . '>';
 			}
 			if ( strlen($siteDescription) > 0 )
@@ -181,6 +196,7 @@ class JmwsIdMyGadgetDrupal extends JmwsIdMyGadget
 				$logoTitleDescription .= $siteDescription;
 				$logoTitleDescription .= '</' . $siteDescriptionElement . '>';
 			}
+			$logoImgSrc .= $siteNameTitleSloganClose;
 		}
 
 		return $logoTitleDescription;
