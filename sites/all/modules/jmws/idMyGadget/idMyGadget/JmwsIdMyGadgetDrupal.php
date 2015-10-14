@@ -54,9 +54,9 @@ class JmwsIdMyGadgetDrupal extends JmwsIdMyGadget
 	/**
 	 * Based on the current device, access the device-dependent options set in the admin console
 	 * and use them to generate most of the markup for the heading
-	 * @return string Markup for site heading (name, logo, title, and description, each of which is optional)
+	 * @return string Markup for site heading (logo, name, title, and description, each of which is optional)
 	 */
-	public function getLogoTitleDescriptionHtml( $front_page='' )
+	public function getLogoNameTitleDescriptionHtml( $front_page='' )
 	{
 		global $base_url;
 
@@ -65,14 +65,14 @@ class JmwsIdMyGadgetDrupal extends JmwsIdMyGadget
 			$front_page = $base_url;
 		}
 
-		$logoTitleDescription = '';  // the return value of this method
+		$logoNameTitleDescription = '';  // the return value of this method
 		$logoFile = '';
 		$logoImgSrc = $base_url . '/sites/default/files/';
 		$siteName = variable_get( 'site_name', '' );
 		$siteTitle = '';
 		$siteDescription = '';
-		$siteNameTitleSloganOpen = '<div id="name-and-slogan">';
-		$siteNameTitleSloganClose = '</div><!-- #name-and-slogan -->';
+		$nameTitleSloganOpen = '<div id="name-and-slogan" class="name-and-slogan">';
+		$nameTitleSloganClose = '</div><!-- #name-and-slogan .name-and-slogan -->';
 		$logoAnchorTagOpen = '<a href="' . $front_page . '" title="' . t('Home') . '" rel="home" id="logo">';
 		$logoAnchorTagClose = '</a>';
 		$textAnchorTagOpen = '<a href="' . $front_page . '" title="' . t('Home') . '" rel="home">';
@@ -86,37 +86,39 @@ class JmwsIdMyGadgetDrupal extends JmwsIdMyGadget
 			if ( strlen($logoFile) > 0 )
 			{
 				$logoImgSrc .= $logoFile;
-				$logoTitleDescription .= $logoAnchorTagOpen;
-				$logoTitleDescription .= '<img src="' . $logoImgSrc . '" class="logo-file-phone" alt="' . $siteName . '" />';
-				$logoTitleDescription .= $logoAnchorTagClose;
+				$logoNameTitleDescription .= $logoAnchorTagOpen;
+				$logoNameTitleDescription .= '<img src="' . $logoImgSrc . '" class="logo-file-phone" alt="' . $siteName . '" />';
+				$logoNameTitleDescription .= $logoAnchorTagClose;
 			}
-			$logoImgSrc .= $siteNameTitleSloganOpen;
+			$logoNameTitleDescription .= $nameTitleSloganOpen;
+			$logoNameTitleDescription .= '<div class="name-title-phone">';
 			if ( variable_get('idmg_show_site_name_phone') )   // NOTE: 'No' must be the zeroeth elt
 			{
 				$siteNameElement = parent::$validElements[variable_get('idmg_site_name_element_phone')];
-				$logoTitleDescription .= '<' . $siteNameElement . ' id="site-name" class="site-name-phone">';
-				$logoTitleDescription .= $textAnchorTagOpen;
-				$logoTitleDescription .= $siteName;
-				$logoTitleDescription .= $textAnchorTagClose;
-				$logoTitleDescription .= '</' . $siteNameElement . '>';
+				$logoNameTitleDescription .= '<' . $siteNameElement . ' id="site-name" class="site-name-phone">';
+				$logoNameTitleDescription .= $textAnchorTagOpen;
+				$logoNameTitleDescription .= $siteName;
+				$logoNameTitleDescription .= $textAnchorTagClose;
+				$logoNameTitleDescription .= '</' . $siteNameElement . '>';
 			}
 			if ( strlen($siteTitle) > 0 )
 			{
 				$siteTitleElement = parent::$validElements[variable_get('idmg_site_title_element_phone')];
-				$logoTitleDescription .= '<' . $siteTitleElement . ' class="site-title-phone">';
-				$logoTitleDescription .= $textAnchorTagOpen;
-				$logoTitleDescription .= $siteTitle;
-				$logoTitleDescription .= $textAnchorTagClose;
-				$logoTitleDescription .= '</' . $siteTitleElement . '>';
+				$logoNameTitleDescription .= '<' . $siteTitleElement . ' class="site-title-phone">';
+				$logoNameTitleDescription .= $textAnchorTagOpen;
+				$logoNameTitleDescription .= $siteTitle;
+				$logoNameTitleDescription .= $textAnchorTagClose;
+				$logoNameTitleDescription .= '</' . $siteTitleElement . '>';
 			}
+			$logoNameTitleDescription .= '</div><!-- .name-title-phone -->';
 			if ( strlen($siteDescription) > 0 )
 			{
 				$siteDescriptionElement = parent::$validElements[variable_get('idmg_site_description_element_phone')];
-				$logoTitleDescription .= '<' . $siteDescriptionElement . ' id="site-slogan" class="site-description-phone">';
-				$logoTitleDescription .= $siteDescription;
-				$logoTitleDescription .= '</' . $siteDescriptionElement . '>';
+				$logoNameTitleDescription .= '<' . $siteDescriptionElement . ' id="site-slogan" class="site-description-phone">';
+				$logoNameTitleDescription .= $siteDescription;
+				$logoNameTitleDescription .= '</' . $siteDescriptionElement . '>';
 			}
-			$logoImgSrc .= $siteNameTitleSloganClose;
+			$logoNameTitleDescription .= $nameTitleSloganClose;
 		}
 		else if ( $this->isTablet() )
 		{
@@ -126,37 +128,39 @@ class JmwsIdMyGadgetDrupal extends JmwsIdMyGadget
 			if ( strlen($logoFile) > 0 )
 			{
 				$logoImgSrc .= $logoFile;
-				$logoTitleDescription .= $logoAnchorTagOpen;
-				$logoTitleDescription .= '<img src="' . $logoImgSrc . '" class="logo-file-tablet" alt="' . $siteName . '" />';
-				$logoTitleDescription .= $logoAnchorTagClose;
+				$logoNameTitleDescription .= $logoAnchorTagOpen;
+				$logoNameTitleDescription .= '<img src="' . $logoImgSrc . '" class="logo-file-tablet" alt="' . $siteName . '" />';
+				$logoNameTitleDescription .= $logoAnchorTagClose;
 			}
-			$logoImgSrc .= $siteNameTitleSloganOpen;
+			$logoNameTitleDescription .= $nameTitleSloganOpen;
+			$logoNameTitleDescription .= '<div class="name-title-tablet">';
 			if ( variable_get('idmg_show_site_name_tablet') )   // NOTE: 'No' must be the zeroeth elt
 			{
 				$siteNameElement = parent::$validElements[variable_get('idmg_site_name_element_tablet')];
-				$logoTitleDescription .= '<' . $siteNameElement . ' id="site-name" class="site-name-tablet">';
-				$logoTitleDescription .= $textAnchorTagOpen;
-				$logoTitleDescription .= $siteName;
-				$logoTitleDescription .= $textAnchorTagClose;
-				$logoTitleDescription .= '</' . $siteNameElement . '>';
+				$logoNameTitleDescription .= '<' . $siteNameElement . ' id="site-name" class="site-name-tablet">';
+				$logoNameTitleDescription .= $textAnchorTagOpen;
+				$logoNameTitleDescription .= $siteName;
+				$logoNameTitleDescription .= $textAnchorTagClose;
+				$logoNameTitleDescription .= '</' . $siteNameElement . '>';
 			}
 			if ( strlen($siteTitle) > 0 )
 			{
 				$siteTitleElement = parent::$validElements[variable_get('idmg_site_title_element_tablet')];
-				$logoTitleDescription .= '<' . $siteTitleElement . ' class="site-title-tablet">';
-				$logoTitleDescription .= $textAnchorTagOpen;
-				$logoTitleDescription .= $siteTitle;
-				$logoTitleDescription .= $textAnchorTagClose;
-				$logoTitleDescription .= '</' . $siteTitleElement . '>';
+				$logoNameTitleDescription .= '<' . $siteTitleElement . ' class="site-title-tablet">';
+				$logoNameTitleDescription .= $textAnchorTagOpen;
+				$logoNameTitleDescription .= $siteTitle;
+				$logoNameTitleDescription .= $textAnchorTagClose;
+				$logoNameTitleDescription .= '</' . $siteTitleElement . '>';
 			}
+			$logoNameTitleDescription .= '</div><!-- .name-title-tablet -->';
 			if ( strlen($siteDescription) > 0 )
 			{
 				$siteDescriptionElement = parent::$validElements[variable_get('idmg_site_description_element_tablet')];
-				$logoTitleDescription .= '<' . $siteDescriptionElement . ' id="site-slogan" class="site-description-tablet">';
-				$logoTitleDescription .= $siteDescription;
-				$logoTitleDescription .= '</' . $siteDescriptionElement . '>';
+				$logoNameTitleDescription .= '<' . $siteDescriptionElement . ' id="site-slogan" class="site-description-tablet">';
+				$logoNameTitleDescription .= $siteDescription;
+				$logoNameTitleDescription .= '</' . $siteDescriptionElement . '>';
 			}
-			$logoImgSrc .= $siteNameTitleSloganClose;
+			$logoNameTitleDescription .= $nameTitleSloganClose;
 		}
 		else
 		{
@@ -166,40 +170,42 @@ class JmwsIdMyGadgetDrupal extends JmwsIdMyGadget
 			if ( strlen($logoFile) > 0 )
 			{
 				$logoImgSrc .= $logoFile;
-				$logoTitleDescription .= $logoAnchorTagOpen;
-				$logoTitleDescription .= '<img src="' . $logoImgSrc . '" class="logo-file-desktop" alt="' . $siteName . '" />';
-				$logoTitleDescription .= $logoAnchorTagClose;
+				$logoNameTitleDescription .= $logoAnchorTagOpen;
+				$logoNameTitleDescription .= '<img src="' . $logoImgSrc . '" class="logo-file-desktop" alt="' . $siteName . '" />';
+				$logoNameTitleDescription .= $logoAnchorTagClose;
 			}
-			$logoImgSrc .= $siteNameTitleSloganOpen;
+			$logoNameTitleDescription .= $nameTitleSloganOpen;
+			$logoNameTitleDescription .= '<div class="name-title-desktop">';
 			if ( variable_get('idmg_show_site_name_desktop') )   // NOTE: 'No' must be the zeroeth elt
 			{
 				$siteNameElement = parent::$validElements[variable_get('idmg_site_name_element_desktop')];
-				$logoTitleDescription .= '<' . $siteNameElement . ' id="site-name" class="site-name-desktop">';
-				$logoTitleDescription .= $textAnchorTagOpen;
-				$logoTitleDescription .= $siteName;
-				$logoTitleDescription .= $textAnchorTagClose;
-				$logoTitleDescription .= '</' . $siteNameElement . '>';
+				$logoNameTitleDescription .= '<' . $siteNameElement . ' id="site-name" class="site-name-desktop">';
+				$logoNameTitleDescription .= $textAnchorTagOpen;
+				$logoNameTitleDescription .= $siteName;
+				$logoNameTitleDescription .= $textAnchorTagClose;
+				$logoNameTitleDescription .= '</' . $siteNameElement . '>';
 			}
 			if ( strlen($siteTitle) > 0 )
 			{
 				$siteTitleElement = parent::$validElements[variable_get('idmg_site_title_element_desktop')];
-				$logoTitleDescription .= '<' . $siteTitleElement . ' class="site-title-desktop">';
-				$logoTitleDescription .= $textAnchorTagOpen;
-				$logoTitleDescription .= $siteTitle;
-				$logoTitleDescription .= $textAnchorTagClose;
-				$logoTitleDescription .= '</' . $siteTitleElement . '>';
+				$logoNameTitleDescription .= '<' . $siteTitleElement . ' class="site-title-desktop">';
+				$logoNameTitleDescription .= $textAnchorTagOpen;
+				$logoNameTitleDescription .= $siteTitle;
+				$logoNameTitleDescription .= $textAnchorTagClose;
+				$logoNameTitleDescription .= '</' . $siteTitleElement . '>';
 			}
+			$logoNameTitleDescription .= '</div><!-- .name-title-desktop -->';
 			if ( strlen($siteDescription) > 0 )
 			{
 				$siteDescriptionElement = parent::$validElements[variable_get('idmg_site_description_element_desktop')];
-				$logoTitleDescription .= '<' . $siteDescriptionElement . ' id="site-slogan" class="site-description-desktop">';
-				$logoTitleDescription .= $siteDescription;
-				$logoTitleDescription .= '</' . $siteDescriptionElement . '>';
+				$logoNameTitleDescription .= '<' . $siteDescriptionElement . ' id="site-slogan" class="site-description-desktop">';
+				$logoNameTitleDescription .= $siteDescription;
+				$logoNameTitleDescription .= '</' . $siteDescriptionElement . '>';
 			}
-			$logoImgSrc .= $siteNameTitleSloganClose;
+			$logoNameTitleDescription .= $nameTitleSloganClose;
 		}
 
-		return $logoTitleDescription;
+		return $logoNameTitleDescription;
 	}
 
   /**
