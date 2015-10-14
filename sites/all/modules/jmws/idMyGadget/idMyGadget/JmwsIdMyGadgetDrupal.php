@@ -61,6 +61,7 @@ class JmwsIdMyGadgetDrupal extends JmwsIdMyGadget
 		global $base_url;
 		$logoTitleDescription = '';
 		$logoFile = '';
+		$logoImgSrc = $base_url . '/sites/default/files/';
 		$siteName = variable_get( 'site_name', '' );
 		$siteTitle = '';
 		$siteDescription = '';
@@ -74,8 +75,9 @@ class JmwsIdMyGadgetDrupal extends JmwsIdMyGadget
 			$siteDescription = variable_get('idmg_site_description_phone');
 			if ( strlen($logoFile) > 0 )
 			{
+				$logoImgSrc .= $logoFile;
 				$logoTitleDescription .= $anchorTagOpen;
-				$logoTitleDescription .= '<img src="' . $logoFile . '" class="logo-file-phone" alt="' . $siteName . '" />';
+				$logoTitleDescription .= '<img src="' . $logoImgSrc . '" class="logo-file-phone" alt="' . $siteName . '" />';
 				$logoTitleDescription .= $anchorTagClose;
 			}
 			if ( variable_get('idmg_show_site_name_phone') )   // NOTE: 'No' must be the zeroeth elt
@@ -111,8 +113,9 @@ class JmwsIdMyGadgetDrupal extends JmwsIdMyGadget
 			$siteDescription = variable_get('idmg_site_description_tablet');
 			if ( strlen($logoFile) > 0 )
 			{
+				$logoImgSrc .= $logoFile;
 				$logoTitleDescription .= $anchorTagOpen;
-				$logoTitleDescription .= '<img src="' . $logoFile . '" class="logo-file-tablet" alt="' . $siteName . '" />';
+				$logoTitleDescription .= '<img src="' . $logoImgSrc . '" class="logo-file-tablet" alt="' . $siteName . '" />';
 				$logoTitleDescription .= $anchorTagClose;
 			}
 			if ( variable_get('idmg_show_site_name_tablet') )   // NOTE: 'No' must be the zeroeth elt
@@ -148,8 +151,9 @@ class JmwsIdMyGadgetDrupal extends JmwsIdMyGadget
 			$siteDescription = variable_get('idmg_site_description_desktop');
 			if ( strlen($logoFile) > 0 )
 			{
+				$logoImgSrc .= $logoFile;
 				$logoTitleDescription .= $anchorTagOpen;
-				$logoTitleDescription .= '<img src="' . $logoFile . '" class="logo-file-desktop" alt="' . $siteName . '" />';
+				$logoTitleDescription .= '<img src="' . $logoImgSrc . '" class="logo-file-desktop" alt="' . $siteName . '" />';
 				$logoTitleDescription .= $anchorTagClose;
 			}
 			if ( variable_get('idmg_show_site_name_desktop') )   // NOTE: 'No' must be the zeroeth elt
