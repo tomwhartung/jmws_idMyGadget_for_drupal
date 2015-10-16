@@ -14,16 +14,13 @@ require_once( 'idMyGadget/JmwsIdMyGadgetDrupal.php' );
 // require_once 'jmws_idMyGadget_for_joomla/PhoneBurgerMenuIcon.php';
 
 /**
- * Instantiate the idmygadget object and check the installation
+ * Check the idmygadget object, instantiating it if necessary, and check the installation
  */
 $jmwsIdMyGadget = null;
 function idMyGadget_page_alter( &$page ) {
   global $jmwsIdMyGadget;
   checkJmwsIdMyGadgetObject();
   checkJmwsIdMyGadgetInstallation();
-
-  print '<p>' . $jmwsIdMyGadget->getGadgetDetectorStringChar() . '/' . $jmwsIdMyGadget->getGadgetStringChar() . '</p>';
-  // print '<p>__DIR__: ' . __DIR__ . '</p>';
 }
 
 /**
