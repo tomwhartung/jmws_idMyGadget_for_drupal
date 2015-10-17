@@ -119,13 +119,13 @@ function idMyGadget_menu()
 		'title' => 'IdMyGadget Detector Setting',
 		'description' => 'Set the IdMyGadget device detector.',
 		'page callback' => 'drupal_get_form',
-		'page arguments' => array('idMyGadget_admin_gadget_detector'),
+		'page arguments' => array('idMyGadget_admin_gadget_detector_fcn'),
 		'access arguments' => array('administer idMyGadget settings'),
 		'type' => MENU_NORMAL_ITEM,
 	);
 	//
 	// Add a section to the module's Settings screen that allows customizing the heading on specific devices
-	// This shows up under Configuration -> IdMyGadget -> IdMyGadget Heading
+	// This shows up under Configuration -> IdMyGadget -> IdMyGadget Device-Dependent Headings
 	//
 	$items['admin/config/idmygadget/heading'] = array(
 		'title' => 'IdMyGadget Device-Dependent Headings',
@@ -136,7 +136,6 @@ function idMyGadget_menu()
 		'file' => 'system.admin.inc',                                 // DO NOT CHANGE THIS!
 		'file path' => drupal_get_path('module', 'system'),           // DO NOT CHANGE THIS!
 	);
-
 	//
 	// Add a section to the module's Settings screen that allows customizing the heading on
 	// each gadget type ("phone", "tablet", "desktop")
@@ -158,15 +157,60 @@ function idMyGadget_menu()
 		);
 	}
 
+	//
+	// Add a section to the module's Settings screen that allows choosing the jQuery Mobile theme
+	// and setting whether the jQuery header and footer menus display on specific device types
+	// This shows up under Configuration -> IdMyGadget -> IdMyGadget Device-Dependent Headings
+	//
+	$items['admin/config/idmygadget/jquerymobilemenus'] = array(
+		'title' => 'IdMyGadget Header/Footer Menus',
+		'description' => 'Select the jQuery Mobile theme and set the device type(s) for the header and footer menus.',
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array( 'idMyGadget_admin_jquery_mobile_menus_fcn' ),
+		'access arguments' => array('administer idMyGadget settings'),
+		'type' => MENU_NORMAL_ITEM,
+	);
+
 	return $items;
 }
+function idMyGadget_admin_jquery_mobile_menus_fcn()
+{
+	global $jmwsIdMyGadget;
+	checkJmwsIdMyGadgetObject();
+	$radio_choices = $jmwsIdMyGadget->translatedRadioChoices;
 
+	$form['idmg_phone_nav_on_phones'] = array(
+		'#type' => 'radios',
+		'#title' => t( 'Show Header/Footer Nav on phones?' ),
+		'#default_value' => variable_get( 'idmg_phone_nav_on_phones', $radio_choices[1] ),
+		'#options' => $radio_choices,
+		'#description' => t( 'Select whether the jQuery Header and Footer Nav Menu should appear on phones.' ),
+		'#required' => TRUE,
+	);
+	$form['idmg_phone_nav_on_tablets'] = array(
+		'#type' => 'radios',
+		'#title' => t( 'Show Header/Footer Nav on tablets?' ),
+		'#default_value' => variable_get( 'idmg_phone_nav_on_tablets', $radio_choices[0] ),
+		'#options' => $radio_choices,
+		'#description' => t( 'Select whether the jQuery Header and Footer Nav Menu should appear on tablets.' ),
+		'#required' => TRUE,
+	);
+	$form['idmg_phone_nav_on_desktops'] = array(
+		'#type' => 'radios',
+		'#title' => t( 'Show Header/Footer Nav on desktops?' ),
+		'#default_value' => variable_get( 'idmg_phone_nav_on_desktops', $radio_choices[0] ),
+		'#options' => $radio_choices,
+		'#description' => t( 'Select whether the jQuery Header and Footer Nav Menu should appear on desktops.' ),
+		'#required' => TRUE,
+	);
+	return system_settings_form( $form );
+}
 /**
  * Create admin config function to allow selection of which gadget detector to use
  * Reference: https://www.drupal.org/node/206761
  * Example: function system_logging_settings in system/system.admin.inc
  */
-function idMyGadget_admin_gadget_detector()
+function idMyGadget_admin_gadget_detector_fcn()
 {
 	$supported_gadget_detectors = JmwsIdMyGadgetDrupal::$supportedGadgetDetectors;
 	$default_gadget_detector = $supported_gadget_detectors[0];
