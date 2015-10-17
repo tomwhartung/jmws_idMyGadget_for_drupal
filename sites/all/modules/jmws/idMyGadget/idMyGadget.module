@@ -2,10 +2,10 @@
 /*
  * @package jmws_idMyGadget_for_drupal
  *
- * Plugin Name: idMyGadget
- * Plugin URI: 
+ * Module Name: idMyGadget
+ * Module URI:
  * Description: Integrate idMyGadget with a couple of drupal themes (to start).
- * Author: Tom Hartung
+ * Author: Tom W Hartung
  * Version: 1.0
  * Author URI: http://tomwhartung.com/
  */
@@ -30,7 +30,6 @@ function idMyGadget_page_alter( &$page ) {
  */
 function checkJmwsIdMyGadgetObject() {
   global $jmwsIdMyGadget;
-
   if( ! isset($jmwsIdMyGadget) ) {
     $gadgetDetectorIndex = variable_get( 'idmg_gadget_detector', 0 );
     $supportedGadgetDetectors = JmwsIdMyGadgetDrupal::$supportedGadgetDetectors;
@@ -85,6 +84,81 @@ function idMyGadget_help($path, $arg) {
       return $output;
 
   }
+}
+
+/**
+ * Add the IdMyGadget Settings widget under Configuration, and
+ * add links to separate sections of options under that.
+ * Implements hook_menu().
+ */
+function idMyGadget_menu()
+{
+	$items = array();
+
+	//
+	// First add a new section to the Configuration admin option screen
+	// Reference: https://www.drupal.org/node/1251942 (bottom of page)
+	//
+	$items['admin/config/idmygadget'] = array(
+		'title' => 'IdMyGadget Settings',
+		'description' => 'Settings for device-dependent headings and menus.',
+		'position' => 'right',
+		// 'weight' => 0,   // where we probably want it (between development and web services)
+		'weight' => -17,    // ok for now (nearer top)
+		'page callback' => 'system_admin_menu_block_page',            // DO NOT CHANGE THIS!
+		'access arguments' => array('administer site configuration'), // Permission needed to view this area
+		'file' => 'system.admin.inc',                                 // DO NOT CHANGE THIS!
+		'file path' => drupal_get_path('module', 'system'),           // DO NOT CHANGE THIS!
+	);
+	//
+	// Add a section to the module's Settings screen that contains
+	// radio buttons allowing the admin to set the device detector.
+	// This shows up under Configuration -> IdMyGadget -> Gadget Detector
+	//
+	$items['admin/config/idmygadget/detector'] = array(
+		'title' => 'IdMyGadget Detector Setting',
+		'description' => 'Set the IdMyGadget device detector.',
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('idMyGadget_admin_gadget_detector'),
+		'access arguments' => array('administer idMyGadget settings'),
+		'type' => MENU_NORMAL_ITEM,
+	);
+	//
+	// Add a section to the module's Settings screen that allows customizing the heading on specific devices
+	// This shows up under Configuration -> IdMyGadget -> IdMyGadget Heading
+	//
+	$items['admin/config/idmygadget/heading'] = array(
+		'title' => 'IdMyGadget Device-Dependent Headings',
+		'description' => 'Customize the heading displayed on phones, tablets, and desktops.',
+		'weight' => 0,
+		'page callback' => 'system_admin_menu_block_page',            // DO NOT CHANGE THIS!
+		'access arguments' => array('administer site configuration'), // Permission needed to view this area
+		'file' => 'system.admin.inc',                                 // DO NOT CHANGE THIS!
+		'file path' => drupal_get_path('module', 'system'),           // DO NOT CHANGE THIS!
+	);
+
+	//
+	// Add a section to the module's Settings screen that allows customizing the heading on
+	// each gadget type ("phone", "tablet", "desktop")
+	// This shows up under Configuration -> IdMyGadget -> IdMyGadget Heading - [gadget_type]
+	//
+	foreach( JmwsIdMyGadgetDrupal::$gadgetTypes as $gadget_type )
+	{
+		$gadget_type_plural = $gadget_type . 's';
+		$gadget_type_ucfirst = ucfirst( $gadget_type );
+		$items_key = 'admin/config/idmygadget/heading/' . $gadget_type_plural;    // e.g., '.../heading/phones'
+		$page_arguments_fcn = 'idMyGadget_admin_heading_' . $gadget_type_plural;  // e.g., 'idMyGadget_admin_heading_phones'
+		$items[$items_key] = array(
+			'title' => 'IdMyGadget Heading - ' . $gadget_type_ucfirst,
+			'description' => 'Customize the heading displayed on phones.',
+			'page callback' => 'drupal_get_form',
+			'page arguments' => array( $page_arguments_fcn ),
+			'access arguments' => array('administer idMyGadget settings'),
+			'type' => MENU_NORMAL_ITEM,
+		);
+	}
+
+	return $items;
 }
 
 /**
@@ -256,86 +330,19 @@ function idMyGadget_admin_heading( $gadget_type )
 //	return system_settings_form( $form );
 	return $form;   // NOTE: calling fcn runs system_settings_form !!!
 }
-
-/**
- * Implements hook_menu().
- */
-function idMyGadget_menu()
-{
-	$items = array();
-
-	//
-	// First add a new section to the Configuration admin option screen
-	// Reference: https://www.drupal.org/node/1251942 (bottom of page)
-	//
-	$items['admin/config/idmygadget'] = array(
-		'title' => 'IdMyGadget Settings',
-		'description' => 'Settings for device-dependent headings and menus.',
-		'position' => 'right',
-		// 'weight' => 0,   // where we probably want it (between development and web services)
-		'weight' => -17,    // ok for now (nearer top)
-		'page callback' => 'system_admin_menu_block_page',            // DO NOT CHANGE THIS!
-		'access arguments' => array('administer site configuration'), // Permission needed to view this area
-		'file' => 'system.admin.inc',                                 // DO NOT CHANGE THIS!
-		'file path' => drupal_get_path('module', 'system'),           // DO NOT CHANGE THIS!
-	);
-	//
-	// Add a section to the module's Settings screen that contains
-	// radio buttons allowing the admin to set the device detector.
-	// This shows up under Configuration -> IdMyGadget -> Gadget Detector
-	//
-	$items['admin/config/idmygadget/detector'] = array(
-		'title' => 'IdMyGadget Detector Setting',
-		'description' => 'Set the IdMyGadget device detector.',
-		'page callback' => 'drupal_get_form',
-		'page arguments' => array('idMyGadget_admin_gadget_detector'),
-		'access arguments' => array('administer idMyGadget settings'),
-		'type' => MENU_NORMAL_ITEM,
-	);
-	//
-	// Add a section to the module's Settings screen that allows customizing the heading on specific devices
-	// This shows up under Configuration -> IdMyGadget -> IdMyGadget Heading
-	//
-	$items['admin/config/idmygadget/heading'] = array(
-		'title' => 'IdMyGadget Device-Dependent Headings',
-		'description' => 'Customize the heading displayed on phones, tablets, and desktops.',
-		'weight' => 0,
-		'page callback' => 'system_admin_menu_block_page',            // DO NOT CHANGE THIS!
-		'access arguments' => array('administer site configuration'), // Permission needed to view this area
-		'file' => 'system.admin.inc',                                 // DO NOT CHANGE THIS!
-		'file path' => drupal_get_path('module', 'system'),           // DO NOT CHANGE THIS!
-	);
-
-	//
-	// Add a section to the module's Settings screen that allows customizing the heading on
-	// each gadget type ("phone", "tablet", "desktop")
-	// This shows up under Configuration -> IdMyGadget -> IdMyGadget Heading - [gadget_type]
-	//
-	foreach( JmwsIdMyGadgetDrupal::$gadgetTypes as $gadget_type )
-	{
-		$gadget_type_plural = $gadget_type . 's';
-		$gadget_type_ucfirst = ucfirst( $gadget_type );
-		$items_key = 'admin/config/idmygadget/heading/' . $gadget_type_plural;    // e.g., '.../heading/phones'
-		$page_arguments_fcn = 'idMyGadget_admin_heading_' . $gadget_type_plural;  // e.g., 'idMyGadget_admin_heading_phones'
-		$items[$items_key] = array(
-			'title' => 'IdMyGadget Heading - ' . $gadget_type_ucfirst,
-			'description' => 'Customize the heading displayed on phones.',
-			'page callback' => 'drupal_get_form',
-			'page arguments' => array( $page_arguments_fcn ),
-			'access arguments' => array('administer idMyGadget settings'),
-			'type' => MENU_NORMAL_ITEM,
-		);
-	}
-
-	return $items;
-}
-
+//
+// ============================================
+// ***  UNUSED CODE - PLEASE USE OR DELETE  ***
+// ============================================
+//
 /**
  * Allows us to see what is in $page
  * Reference: https://api.drupal.org/api/drupal/modules%21system%21system.api.php/function/hook_page_alter/7
  * NOTES:
- *   This does NOTHING when we have "_NOT" appended to the name!!
  *   This same function is in stark_idMyGadget/template.php
+ *   ------------------------------------------------------------
+ *   This does NOTHING when we have "_NOT" appended to the name!!
+ *   ------------------------------------------------------------
  */
 function idMyGadget_page_alter_NOT( &$page ) {
   print '<p>Entering idMyGadget_page_alter_NOT (in the module)</p>';
