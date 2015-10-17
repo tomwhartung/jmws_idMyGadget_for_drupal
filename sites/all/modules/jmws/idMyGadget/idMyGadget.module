@@ -179,13 +179,22 @@ function idMyGadget_admin_jquery_mobile_menus_fcn()
 	checkJmwsIdMyGadgetObject();
 	$radio_choices = $jmwsIdMyGadget->translatedRadioChoices;
 
+	$form['idmg_jqm_data_theme'] = array(
+		'#type' => 'select',
+		'#title' => t( 'jQuery Mobile Theme' ),
+		'#default_value' => variable_get( 'idmg_jqm_data_theme', JmwsIdMyGadget::$jqueryMobileThemeChoices[0] ),
+		'#options' => JmwsIdMyGadget::$jqueryMobileThemeChoices,
+		'#description' => t( 'Select the jQuery Mobile Theme to use for the header and footer menus.' ),
+		'#required' => TRUE,
+	);
+
 	$form['idmg_phone_nav_on_phones'] = array(
 		'#type' => 'radios',
 		'#title' => t( 'Show Header/Footer Nav on phones?' ),
 		'#default_value' => variable_get( 'idmg_phone_nav_on_phones', $radio_choices[1] ),
 		'#options' => $radio_choices,
 		'#description' => t( 'Select whether the jQuery Header and Footer Nav Menu should appear on phones.' ),
-		'#required' => TRUE,
+		'#required' => FALSE,
 	);
 	$form['idmg_phone_nav_on_tablets'] = array(
 		'#type' => 'radios',
@@ -193,7 +202,7 @@ function idMyGadget_admin_jquery_mobile_menus_fcn()
 		'#default_value' => variable_get( 'idmg_phone_nav_on_tablets', $radio_choices[0] ),
 		'#options' => $radio_choices,
 		'#description' => t( 'Select whether the jQuery Header and Footer Nav Menu should appear on tablets.' ),
-		'#required' => TRUE,
+		'#required' => FALSE,
 	);
 	$form['idmg_phone_nav_on_desktops'] = array(
 		'#type' => 'radios',
@@ -201,7 +210,7 @@ function idMyGadget_admin_jquery_mobile_menus_fcn()
 		'#default_value' => variable_get( 'idmg_phone_nav_on_desktops', $radio_choices[0] ),
 		'#options' => $radio_choices,
 		'#description' => t( 'Select whether the jQuery Header and Footer Nav Menu should appear on desktops.' ),
-		'#required' => TRUE,
+		'#required' => FALSE,
 	);
 	return system_settings_form( $form );
 }

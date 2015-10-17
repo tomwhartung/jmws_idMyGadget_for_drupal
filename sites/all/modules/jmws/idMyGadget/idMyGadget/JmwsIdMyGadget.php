@@ -55,6 +55,10 @@ class JmwsIdMyGadget
 	 * Array of choices for lists of elements (e.g., site name, site title)
 	 */
 	public static $validElements = array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'div', 'span' );
+	/**
+	 * Array of choices for jQuery Mobile theme
+	 */
+	public static $jqueryMobileThemeChoices = array( 'a', 'b', 'c', 'd', 'e', 'f' );
 
 	/**
 	 * Boolean indicating whether device detection is enabled
