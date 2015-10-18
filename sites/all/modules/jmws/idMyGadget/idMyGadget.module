@@ -21,6 +21,14 @@ function idMyGadget_page_alter( &$page ) {
   global $jmwsIdMyGadget;
   checkJmwsIdMyGadgetObject();
   checkJmwsIdMyGadgetInstallation();
+  $jmwsIdMyGadget->usingJQueryMobile = TRUE;
+
+  if ( $jmwsIdMyGadget->usingJQueryMobile ) {
+    // $data = array( 'data' => JmwsIdMyGadget::JQUERY_MOBILE_CSS_URL, );
+    $options = array( 'type' => 'external', 'every_page' => TRUE );
+    drupal_add_css( JmwsIdMyGadget::JQUERY_MOBILE_CSS_URL, $options);
+    // drupal_add_js();
+  }
 }
 
 /**
@@ -35,7 +43,6 @@ function checkJmwsIdMyGadgetObject() {
     $supportedGadgetDetectors = JmwsIdMyGadgetDrupal::$supportedGadgetDetectors;
     $gadgetDetectorString = $supportedGadgetDetectors[$gadgetDetectorIndex];
     $jmwsIdMyGadget = new JmwsIdMyGadgetDrupal( $gadgetDetectorString );
-    $jmwsIdMyGadget->usingJQueryMobile = FALSE;
   }
 }
 
