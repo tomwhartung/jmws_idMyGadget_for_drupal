@@ -24,10 +24,9 @@ function idMyGadget_page_alter( &$page ) {
   $jmwsIdMyGadget->usingJQueryMobile = TRUE;
 
   if ( $jmwsIdMyGadget->usingJQueryMobile ) {
-    // $data = array( 'data' => JmwsIdMyGadget::JQUERY_MOBILE_CSS_URL, );
     $options = array( 'type' => 'external', 'every_page' => TRUE );
-    drupal_add_css( JmwsIdMyGadget::JQUERY_MOBILE_CSS_URL, $options);
-    // drupal_add_js();
+    drupal_add_css( JmwsIdMyGadget::JQUERY_MOBILE_CSS_URL, $options );
+    drupal_add_js( JmwsIdMyGadget::JQUERY_MOBILE_JS_URL, $options );
   }
 }
 
