@@ -21,7 +21,7 @@ function idMyGadget_page_alter( &$page ) {
   global $jmwsIdMyGadget;
   checkJmwsIdMyGadgetObject();
   checkJmwsIdMyGadgetInstallation();
-  setUsingJQueryMobile();
+  $jmwsIdMyGadget->initializeJQueryMobileVars();
   //
   // Add in the jQuery Mobile css and js as appropriate
   // Reference: https://ffwagency.com/blog/7-ways-to-add-custom-js-and-css-to-a-page-drupal
@@ -30,43 +30,6 @@ function idMyGadget_page_alter( &$page ) {
     $options = array( 'type' => 'external', 'every_page' => TRUE );
     drupal_add_css( JmwsIdMyGadget::JQUERY_MOBILE_CSS_URL, $options );
     drupal_add_js( JmwsIdMyGadget::JQUERY_MOBILE_JS_URL, $options );
-  }
-}
-/**
- * Decide whether we are using the jQuery Mobile js library,
- * based on the device we are on and the values of device-dependent options set by the admin
- */
-function setUsingJQueryMobile() {
-  global $jmwsIdMyGadget;
-  $jmwsIdMyGadget->usingJQueryMobile = FALSE;
-  $jmwsIdMyGadget->phoneHeaderNavThisDevice = FALSE;
-  $jmwsIdMyGadget->phoneFooterNavThisDevice = FALSE;
-  $jmwsIdMyGadget->phoneBurgerIconThisDeviceLeft = FALSE;
-  $jmwsIdMyGadget->phoneBurgerIconThisDeviceRight = FALSE;
-  $phoneNavOnThisDevice = FALSE;
-  //
-  // Not worrying about the phone burger stuff right now,
-  // so this logic will probably change as time progresses
-  //
-  if ( $jmwsIdMyGadget->isPhone() ) {
-    $jmwsIdMyGadget->usingJQueryMobile = TRUE;
-    $phoneNavOnThisDevice = variable_get('idmg_phone_nav_on_phones', 0);
-  }
-  else if ( $jmwsIdMyGadget->isTablet() ) {
-    $phoneNavOnThisDevice = variable_get('idmg_phone_nav_on_tablets', 0);
-    if ( $phoneNavOnThisDevice ) {
-      $jmwsIdMyGadget->usingJQueryMobile = TRUE;
-    }
-  }
-  else {
-    $phoneNavOnThisDevice = variable_get('idmg_phone_nav_on_desktops', 0);
-    if ( $phoneNavOnThisDevice ) {
-      $jmwsIdMyGadget->usingJQueryMobile = TRUE;
-    }
-  }
-  if( $phoneNavOnThisDevice ) {
-    $jmwsIdMyGadget->phoneHeaderNavThisDevice = TRUE;
-    $jmwsIdMyGadget->phoneFooterNavThisDevice = TRUE;
   }
 }
 

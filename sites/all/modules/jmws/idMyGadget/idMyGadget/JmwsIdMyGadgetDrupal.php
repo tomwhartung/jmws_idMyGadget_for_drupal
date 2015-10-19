@@ -197,4 +197,49 @@ class JmwsIdMyGadgetDrupal extends JmwsIdMyGadget
 			array_push( $this->translatedRadioChoices, t($aChoice) );
 		}
 	}
+	/**
+	 * Decide whether we are using the jQuery Mobile js library,
+	 * based on the device we are on and the values of device-dependent options set by the admin
+	 */
+	protected function setUsingJQueryMobile() {
+		$this->usingJQueryMobile = FALSE;
+		$this->phoneHeaderNavThisDevice = FALSE;
+		$this->phoneFooterNavThisDevice = FALSE;
+		$this->phoneBurgerIconThisDeviceLeft = FALSE;
+		$this->phoneBurgerIconThisDeviceRight = FALSE;
+		$phoneNavOnThisDevice = FALSE;
+		//
+		// Not worrying about the phone burger stuff right now,
+		// so this logic will probably change as time progresses
+		//
+		if ( $this->isPhone() ) {
+			$this->usingJQueryMobile = TRUE;
+			$phoneNavOnThisDevice = variable_get('idmg_phone_nav_on_phones', 0);
+		}
+		else if ( $this->isTablet() ) {
+			$phoneNavOnThisDevice = variable_get('idmg_phone_nav_on_tablets', 0);
+			if ( $phoneNavOnThisDevice ) {
+				$this->usingJQueryMobile = TRUE;
+			}
+		}
+		else {
+			$phoneNavOnThisDevice = variable_get('idmg_phone_nav_on_desktops', 0);
+			if ( $phoneNavOnThisDevice ) {
+				$this->usingJQueryMobile = TRUE;
+			}
+		}
+		if( $phoneNavOnThisDevice ) {
+			$this->phoneHeaderNavThisDevice = TRUE;
+			$this->phoneFooterNavThisDevice = TRUE;
+		}
+	}
+	/**
+	 * Use the admin option to set the jQuery Mobile Data Theme attribute (if necessary)
+	 */
+	protected function setJqmDataThemeAttribute()
+	{
+		$jqmDataThemeIndex = variable_get( 'idmg_jqm_data_theme' );
+		$jqmDataThemeLetter = JmwsIdMyGadget::$jqueryMobileThemeChoices[$jqmDataThemeIndex];
+		$this->jqmDataThemeAttribute = 'data-theme="' . $jqmDataThemeLetter . '"';
+	}
 }
