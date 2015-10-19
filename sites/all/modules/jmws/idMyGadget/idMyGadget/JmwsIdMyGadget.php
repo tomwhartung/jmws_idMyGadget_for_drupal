@@ -61,6 +61,42 @@ class JmwsIdMyGadget
 	public static $jqueryMobileThemeChoices = array( 'a', 'b', 'c', 'd', 'e', 'f' );
 
 	/**
+	 * Used when this plugin/module is not installed or active, etc.
+	 * Contains a value only when there's an error.
+	 */
+	public $errorMessage = '';
+	/**
+	 * Boolean: Using jQuery Mobile changes everything, so we need to know when we are using it.
+	 * Although we always use it on phones, we do not always use it on tablets.
+	 */
+	public $usingJQueryMobile = TRUE;
+	/**
+	 * Boolean: determines whether we want the hamburger menu in the upper left corner
+	 * of this page for this device.
+	 * Set by the template, based on options set in the back end.
+	 * Kept here so that modules can access it without us polluting the global namespace.
+	 */
+	public $phoneBurgerIconThisDeviceLeft = FALSE;
+	/**
+	 * Boolean: analogous to phoneBurgerIconThisDeviceLeft, but for the right side.
+	 */
+	public $phoneBurgerIconThisDeviceRight = FALSE;
+
+	/**
+	 * We want to use jQuery Mobile data-role attributes only when we are using that library.
+	 */
+	public $jqmDataRole = array(
+		'page' => '',
+		'header' => '',
+		'content' => '',
+		'footer' => '',
+	);
+	/**
+	 * Data role and theme attributes determine how the jQuery Mobile widgets appear
+	 */
+	public $jqmDataThemeAttribute = '';
+
+	/**
 	 * Boolean indicating whether device detection is enabled
 	 */
 	protected $detectionEnabled = FALSE;
@@ -167,8 +203,8 @@ class JmwsIdMyGadget
 			}
 		}
 
-		$this->gadgetDetectorStringChar = substr( $this->gadgetDetectorString, 0, 1 );
-		$this->gadgetStringChar = substr( $this->gadgetString, 0, 1 );
+		$this->gadgetDetectorStringChar = substr( $this->gadgetDetectorString, 0, 1 );  // part of the sanity check string
+		$this->gadgetStringChar = substr( $this->gadgetString, 0, 1 );                  // part of the sanity check string
 	}
 
 	/**
@@ -184,6 +220,11 @@ class JmwsIdMyGadget
 		$returnValue .= $this->getGadgetDetectorStringChar() . '/';
 		$returnValue .= $this->getGadgetStringChar() . '/';
 		$returnValue .= $this->usingJQueryMobile ? 'Y' : 'N';
+
+		$jqmDataThemeIndex = get_theme_mod( 'idmg_jqm_data_theme' );
+		$returnValue .= '/' . $this->jqmDataRole['header'];
+		$returnValue .= '/' . $jqmDataThemeIndex;
+		$returnValue .= '/' . $this->jqmDataThemeAttribute;
 		$returnValue .= '</p>';
 		return $returnValue;
 	}
@@ -201,6 +242,19 @@ class JmwsIdMyGadget
 	public function isEnabled()
 	{
 		return $this->detectionEnabled;
+	}
+	/**
+	 * Set the jQquery Mobile data-role attributes
+	 */
+	public function setJqmDataRoles()
+	{
+		if ( $this->usingJQueryMobile )
+		{
+			$this->jqmDataRole['page'] = 'data-role="page"';
+			$this->jqmDataRole['header'] = 'data-role="header"';
+			$this->jqmDataRole['content'] = 'data-role="content"';
+			$this->jqmDataRole['footer'] = 'data-role="footer"';
+		}
 	}
 
 	/**

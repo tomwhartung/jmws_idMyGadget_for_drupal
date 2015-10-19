@@ -20,27 +20,6 @@ class JmwsIdMyGadgetDrupal extends JmwsIdMyGadget
 	 * Translated version of the radio button choices defined (as static) in the parent class
 	 */
 	public $translatedRadioChoices = array();
-	/**
-	 * Used by when this plugin is not installed or active, etc.
-	 * Set only when there's an error.
-	 */
-	public $errorMessage = '';
-	/**
-	 * Boolean: Using jQuery Mobile changes everything, so we need to know when we are using it.
-	 * Although we always use it on phones, we do not always use it on tablets.
-	 */
-	public $usingJQueryMobile = FALSE;
-	/**
-	 * Boolean: determines whether we want the hamburger menu in the upper left corner
-	 * of this page for this device.
-	 * Set by the template, based on options set in the back end.
-	 * Kept here so that modules can access it without us polluting the global namespace.
-	 */
-	public $phoneBurgerIconThisDeviceLeft = FALSE;
-	/**
-	 * Boolean: analogous to phoneBurgerIconThisDeviceLeft, but for the right side.
-	 */
-	public $phoneBurgerIconThisDeviceRight = FALSE;
 
 	/**
 	 * Constructor: for best results, install and use a gadgetDetector other than the default
