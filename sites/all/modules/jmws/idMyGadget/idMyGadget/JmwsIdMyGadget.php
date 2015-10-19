@@ -172,6 +172,23 @@ class JmwsIdMyGadget
 	}
 
 	/**
+	 * For development only! Please remove when code is stable.
+	 * Displaying some values that can help us make sure we haven't inadvertently
+	 * broken something while we are actively working on this.
+	 * @return string
+	 */
+	function getSanityCheckString()
+	{
+		global $jmwsIdMyGadget;
+		$returnValue = '<p>';
+		$returnValue .= $this->getGadgetDetectorStringChar() . '/';
+		$returnValue .= $this->getGadgetStringChar() . '/';
+		$returnValue .= $this->usingJQueryMobile ? 'Y' : 'N';
+		$returnValue .= '</p>';
+		return $returnValue;
+	}
+
+	/**
 	 * Returns TRUE if the desired detector (subclass) is installed, else FALSE
 	 */
 	public function isInstalled()
