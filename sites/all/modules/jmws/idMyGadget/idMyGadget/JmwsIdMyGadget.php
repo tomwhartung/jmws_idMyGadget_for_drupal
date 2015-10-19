@@ -221,7 +221,7 @@ class JmwsIdMyGadget
 		$returnValue .= $this->getGadgetStringChar() . '/';
 		$returnValue .= $this->usingJQueryMobile ? 'Y' : 'N';
 
-		$jqmDataThemeIndex = get_theme_mod( 'idmg_jqm_data_theme' );
+		$jqmDataThemeIndex = variable_get( 'idmg_jqm_data_theme' );   // WARNING: drupal-specific (but we are just checking sanity)
 		$returnValue .= '/' . $this->jqmDataRole['header'];
 		$returnValue .= '/' . $jqmDataThemeIndex;
 		$returnValue .= '/' . $this->jqmDataThemeAttribute;
