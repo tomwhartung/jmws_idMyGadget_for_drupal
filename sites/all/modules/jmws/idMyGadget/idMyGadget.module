@@ -398,6 +398,20 @@ function idMyGadget_admin_heading( $gadget_type )
 // ============================================
 //
 /**
+ * Failed (so far) attempt to fix JS error we are seeing when using jQuery Mobile.
+ * ============================
+ * THIS CODE IS NOT BEING USED!
+ * ============================
+ * For details, see sites/all/modules/jmws/idMyGadget/js/readme.txt
+ */
+function idMyGadget_js_alter(&$javascript) {
+  // Swap out jQuery to use an updated version of the library.
+//  print '<p>$javascript["misc/jquery.js"]["data"] before: ' . $javascript['misc/jquery.js']['data'] . "</p>";
+//  $javascript['misc/jquery.js']['data'] = drupal_get_path('module', 'idMyGadget') . 'js/jquery-1.6.4.js';
+//  print '<p>$javascript["misc/jquery.js"]["data"] after: ' . $javascript['misc/jquery.js']['data'] . "</p>";
+}
+
+/**
  * Allows us to see what is in $page
  * Reference: https://api.drupal.org/api/drupal/modules%21system%21system.api.php/function/hook_page_alter/7
  * NOTES:
