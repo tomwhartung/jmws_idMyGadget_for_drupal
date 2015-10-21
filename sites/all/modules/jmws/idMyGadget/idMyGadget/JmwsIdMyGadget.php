@@ -33,6 +33,8 @@ class JmwsIdMyGadget
 //	const JQUERY_DESKTOP_JS_URL = 'http://code.jquery.com/jquery-1.11.3.min.js';
 	const JQUERY_MOBILE_CSS_URL = 'http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css';
 	const JQUERY_MOBILE_JS_URL = 'http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js';
+//	const JQUERY_MOBILE_CSS_URL = 'http://code.jquery.com/mobile/latest/jquery.mobile.min.css';
+//	const JQUERY_MOBILE_JS_URL = 'http://code.jquery.com/mobile/latest/jquery.mobile.min.js';
 
 	/**
 	 * Array of gadget detectors currently supported by idMyGadget
@@ -84,6 +86,9 @@ class JmwsIdMyGadget
 
 	/**
 	 * We want to use jQuery Mobile data-role attributes only when we are using that library.
+	 * In other words, by defining these attributes as variables, that may or may not contain values
+	 * (as appropriate for the device and options set), then, when it comes time to use them
+	 * we can just use them (empty or not) without having to worry about the device and the options etc.
 	 */
 	public $jqmDataRole = array(
 		'page' => '',
@@ -213,19 +218,12 @@ class JmwsIdMyGadget
 	 * broken something while we are actively working on this.
 	 * @return string
 	 */
-	function getSanityCheckString()
+	public function getSanityCheckString()
 	{
-		global $jmwsIdMyGadget;
-		$returnValue = '<p>';
+		$returnValue = '';
 		$returnValue .= $this->getGadgetDetectorStringChar() . '/';
 		$returnValue .= $this->getGadgetStringChar() . '/';
 		$returnValue .= $this->usingJQueryMobile ? 'Y' : 'N';
-
-		$jqmDataThemeIndex = variable_get( 'idmg_jqm_data_theme' );   // WARNING: drupal-specific (but we are just checking sanity)
-		$returnValue .= '/' . $this->jqmDataRole['header'];
-		$returnValue .= '/' . $jqmDataThemeIndex;
-		$returnValue .= '/' . $this->jqmDataThemeAttribute;
-		$returnValue .= '</p>';
 		return $returnValue;
 	}
 

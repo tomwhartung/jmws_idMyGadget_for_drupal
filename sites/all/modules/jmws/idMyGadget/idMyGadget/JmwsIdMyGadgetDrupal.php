@@ -30,6 +30,25 @@ class JmwsIdMyGadgetDrupal extends JmwsIdMyGadget
 		parent::__construct( $gadgetDetectorString, $debugging, $allowOverridesInUrl );
 		$this->translateStaticArrays();
 	}
+
+	/**
+	 * For development only! Please remove when code is stable.
+	 * Displaying some values that can help us make sure we haven't inadvertently
+	 * broken something while we are actively working on this.
+	 * @return string
+	 */
+	public function getSanityCheckString()
+	{
+		$returnValue = '<p>';
+		$returnValue .= parent::getSanityCheckString() . '/';
+
+		$jqmDataThemeIndex = variable_get( 'idmg_jqm_data_theme' );   // WARNING: drupal-specific (but we are just checking sanity)
+		$returnValue .= '/' . $jqmDataThemeIndex;
+		$returnValue .= '/' . $this->jqmDataThemeAttribute;
+		$returnValue .= '</p>';
+		return $returnValue;
+	}
+
 	/**
 	 * Based on the current device, access the device-dependent options set in the admin console
 	 * and use them to generate most of the markup for the heading
