@@ -10,7 +10,7 @@ Work on this project is on hold indefinitely for the following reasons:
 
 1. Drupal 8 has been released
 
-Therefore all work on this project is currently being done in the [jmws_drupal_stark_idMyGadget-d8 repo](https://github.com/tomwhartung/jmws_drupal_stark_idMyGadget-d8).
+Therefore all work on this project is currently being done in the [jmws_idMyGadget_for_drupal-d8 repo](https://github.com/tomwhartung/jmws_idMyGadget_for_drupal-d8).
 
 Thank you for your understanding.
 
