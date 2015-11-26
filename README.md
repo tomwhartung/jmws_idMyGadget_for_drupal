@@ -1,5 +1,20 @@
-# jmws_idMyGadget_for_drupal
-Module containing idMyGadget code for integration with the Drupal CMS.
+# jmws_idMyGadget_for_drupal-d7
+
+Module containing idMyGadget code for integration with version 7 of the Drupal CMS.
+
+# This Project Is on Hold Indefinitely
+
+Work on this project is on hold indefinitely for the following reasons:
+
+1. The version of jQuery that Drupal 7 uses is incompatible with the version of jQuery Mobile that we want to use
+
+1. Drupal 8 has been released
+
+Therefore all work on this project is currently being done in the [jmws_drupal_stark_idMyGadget-d8 repo](https://github.com/tomwhartung/jmws_drupal_stark_idMyGadget-d8).
+
+Thank you for your understanding.
+
+# For possible future reference:
 
 ### Structural change to heading in page.tpl.php
 
